@@ -1,0 +1,34 @@
+.login {
+    min-height: 100vh;
+  }
+  
+  .bg-image {
+    background-image: url("img/sideban.png");
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-heading {
+    font-weight: 300;
+  }
+  
+  .btn-login {
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+    background-color: #464E2E;
+    color: #f3f1eb;
+  }
+
+  .btn-login:hover {
+    background-color: #ACB992;
+}
+
+.btn:hover {
+      background-color: #ACB992;
+}
+
+  hr.slash{
+    border: 1px solid #ad9d67;
+    width: 100%;
+}

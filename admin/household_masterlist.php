@@ -298,7 +298,7 @@ if(isset($_POST['add_household_member'])){
                     <div class="ps-3">
 
                    <?php
-$sql = "SELECT COUNT(*) AS user_count FROM members WHERE household_id IS NOT NULL";
+$sql = "SELECT COUNT(*) AS user_count FROM household_members";
 if ($result = mysqli_query($conn, $sql)) {
     $row = mysqli_fetch_assoc($result);
     $userCount = $row['user_count'];

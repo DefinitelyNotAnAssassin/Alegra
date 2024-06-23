@@ -54,6 +54,8 @@ if(isset($_POST['add_proj'])){
 }
 
 if(isset($_POST['mem_fee_add'])){
+    $_POST['mem_fee_amount'] = $_POST['mem_fee_amount'] ?? 1000;
+    
     $profile = $obj->add_mem_fee($_POST);
   }
 

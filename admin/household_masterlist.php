@@ -406,7 +406,7 @@ $households = mysqli_fetch_all($result, MYSQLI_ASSOC);
           <td><?= htmlspecialchars($household['lot']) ?></td>
           <td><?= htmlspecialchars($household['first_name']) ?></td>
           <td><?= htmlspecialchars($household['last_name']) ?></td>
-          <td><button data-bs-toggle="modal" data-bs-target="#householdDetails"  onclick="changeMembers('<?php echo htmlspecialchars(json_encode($members), ENT_QUOTES, 'UTF-8'); ?>')">View Members</button></td>
+          <td><button class = "btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#householdDetails"  onclick="changeMembers('<?php echo htmlspecialchars(json_encode($members), ENT_QUOTES, 'UTF-8'); ?>')">View Members</button></td>
         </tr>
         <?php endforeach; ?>
       </tbody>

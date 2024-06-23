@@ -132,7 +132,17 @@ if(isset($_GET['status'])){
 
 
   <div class="col-md-4">
-  
+      <label for="validationCustom02" class="form-label">Membership Fee Plan</label>
+      <select name="membership_plan" class="form-select" id="validationCustom02" required>
+        <option selected disabled value="">Choose Membership Fee Plan</option>
+        <option value="monthly">Monthly</option>
+        <option value="quarterly">Quarterly</option>
+        <option value="semi-annually">Semi-Annually</option>
+        <option value="annually">Annually</option>
+      </select>
+      <div class="invalid-feedback">
+        Please select a membership fee plan.
+      </div>
   </div>
 
 

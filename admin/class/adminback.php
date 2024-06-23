@@ -440,6 +440,11 @@ class  adminback
         $username = $data['username'];
         $password = $data['password'];
 
+        $membership_plan = $data['membership_plan'];
+
+
+
+        
 
         $pdt_img_name1 = $_FILES['profile']['name'];
         $pdt_img_size = $_FILES['profile']['size'];
@@ -456,7 +461,8 @@ class  adminback
         `contact`,
         `username`,
         `password`,
-        `user_image`)
+        `user_image`,
+        `membership_plan`)
         VALUES (
         '$blk',
         '$lot',
@@ -467,7 +473,8 @@ class  adminback
         '$contact',
         '$username',
         '$password',
-        '$pdt_img_name1'
+        '$pdt_img_name1',
+        '$membership_plan'
             )";
 
             if (mysqli_query($this->connection, $query)) {
@@ -478,6 +485,7 @@ class  adminback
                 window.location.replace('masterlist.php');
                 </script>";
         } else {
+            echo "Error: " . $query . "<br>" . mysqli_error($this->connection);
         }
     }
 
@@ -1568,7 +1576,7 @@ function display_mem_con($id)
 function add_mem_fee($data){
 
 
-    $amount = '1000';
+    $amount = $data['amount'];
     $user_id = $data['mem_id'];
 
 

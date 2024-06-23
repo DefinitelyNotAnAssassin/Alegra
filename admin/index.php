@@ -111,6 +111,799 @@ $(document).ready(function () {
 });
     </script>
 
+
+<main id="main" class="main">
+
+  
+  <?php
+    $sql = "SELECT * from household_members";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+
+    <div class="pagetitle">
+      <h1>ALEGRA MEMBER INFORMATION</h1>
+      <h5 class="card-title">Total Number of Members: <?php echo $rowcount;?> </h5>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8" style="margin: auto;">
+
+        <div class="search-bar" style="">
+
+        </div><!-- End Search Bar -->
+
+        <br>
+
+      <div class="row">
+            <!-- Member Card -->
+            <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 1</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from household where blk = 1 order by lot asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+
+                    </div>
+
+                  </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#one">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="one" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 1</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($on = mysqli_fetch_assoc($one)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($on['first_name']." ".$on['last_name']) ?></td>
+                <td><?php echo $on['block_number']; ?></td>
+                <td><?php echo $on['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+
+            <!-- -->
+
+            <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 2</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 2 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+
+                    <div class="ps-3">
+
+                    </div>
+
+                  </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#two">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="two" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 2</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example2" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($tw = mysqli_fetch_assoc($two)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($tw['first_name']." ".$tw['last_name']) ?></td>
+                <td><?php echo $tw['block_number']; ?></td>
+                <td><?php echo $tw['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 3</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 3 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#three">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="three" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 3</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example3" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($th = mysqli_fetch_assoc($three)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($th['first_name']." ".$th['last_name']) ?></td>
+                <td><?php echo $th['block_number']; ?></td>
+                <td><?php echo $th['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 4</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 4 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#four">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="four" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 4</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example4" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($fr = mysqli_fetch_assoc($four)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($fr['first_name']." ".$fr['last_name']) ?></td>
+                <td><?php echo $fr['block_number']; ?></td>
+                <td><?php echo $fr['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 5</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 5 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#five">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="five" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 5</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example5" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($fi = mysqli_fetch_assoc($five)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($fi['first_name']." ".$fi['last_name']) ?></td>
+                <td><?php echo $fi['block_number']; ?></td>
+                <td><?php echo $fi['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 6</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 6 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#six">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="six" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 6</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example6" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($si = mysqli_fetch_assoc($six)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($si['first_name']." ".$si['last_name']) ?></td>
+                <td><?php echo $si['block_number']; ?></td>
+                <td><?php echo $si['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 7</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 7 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#seven">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="seven" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 7</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example7" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($se = mysqli_fetch_assoc($seven)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($se['first_name']." ".$se['last_name']) ?></td>
+                <td><?php echo $se['block_number']; ?></td>
+                <td><?php echo $se['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 8</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 8 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#eight">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="eight" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 8</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example8" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($ei = mysqli_fetch_assoc($eight)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($ei['first_name']." ".$ei['last_name']) ?></td>
+                <td><?php echo $ei['block_number']; ?></td>
+                <td><?php echo $ei['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 9</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from members where block_number = 9 order by lot_number asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nine">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="nine" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 9</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example9" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($ni = mysqli_fetch_assoc($nine)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($ni['first_name']." ".$ni['last_name']) ?></td>
+                <td><?php echo $ni['block_number']; ?></td>
+                <td><?php echo $ni['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+                        <!-- -->
+
+                        <div style="text-align: center;" class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+
+                <div  class="card-body">
+                  <h5 class="card-title"><i class="bi bi-house-fill"></i> BLOCK | 10</h5>
+
+                  <div style="margin-left: 38%;" class="d-flex align-items-center">
+                    <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <?php
+    $sql = "SELECT * from household where blk = 10 order by lot asc";
+      if ($result = mysqli_query($conn, $sql)) {
+      $rowcount = mysqli_num_rows( $result );
+      }
+      ?>
+                    <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
+                    </div>
+                    <div class="ps-3">
+                    </div>
+                    </div>
+                  <br>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ten">
+                  <i class="fa-solid fa-eye"></i> View
+              </button>
+                </div>
+
+              </div>
+            </div>
+
+             <!-- Vertically centered Modal -->
+
+              <div class="modal fade" id="ten" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Block 10</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <div class="modal-body">
+                    <table id="example10" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Block</th>
+                <th>Lot</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+    while ($te = mysqli_fetch_assoc($ten)){
+        ?>
+            <tr>
+
+                <td><?php echo ucwords($te['first_name']." ".$te['last_name']) ?></td>
+                <td><?php echo $te['block_number']; ?></td>
+                <td><?php echo $te['lot_number']; ?></td>
+
+            </tr>
+            <?php }
+                 ?>
+
+    </tbody>
+    </table>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Vertically centered Modal-->
+
+
+
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->

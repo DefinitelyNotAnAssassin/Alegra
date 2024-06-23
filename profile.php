@@ -357,7 +357,7 @@ button {
                             <tr>
                                 <th hidden scope="col">ID</th>
                                 <th scope="col"></th>
-                                <th scope="col">Last Payment</th>
+                                <th scope="col">Status</th>
 
 
                             </tr>
@@ -374,12 +374,16 @@ button {
                                     <b> DUE:
                                         <?php echo $ff['deadline'];?><b>
                                 </td>
-                                <td><?php echo $ff['date'];?><b>
+                                <td>
+                                    <?php
+                                    if($ff['status'] == 0){
+                                        echo "Unpaid";
+                                    } elseif($ff['status'] == 1){
+                                        echo "Paid";
+                                    }
+                                }
+                                    ?>
                                 </td>
-
-
-                            </tr>
-                            <?php } ?>
                         </tbody>
                     </table>
                     <!-- End Table with stripped rows -->

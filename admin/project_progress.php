@@ -27,6 +27,8 @@ $prog = $tprog > 0 ? ($cprog/$tprog) * 100 : 0;
 $prog = $prog > 0 ?  number_format($prog,2) : $prog;
 $prod = $conn->query("SELECT * FROM user_productivity where project_id = {$id}")->num_rows;
 
+
+
 $stat = array("Pending","Started","On-Progress","On-Hold","Over Due","Done");
 
 ini_set('display_errors',0);
@@ -652,10 +654,36 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                                 </dd>
 
                                                 <dl>
+
+                                                <?php 
+                                        include('class/db.php');
+                                        $id = $_GET['id'];
+                                        $query = $conn->prepare("SELECT SUM(actual_cost) AS total_cost FROM task_list WHERE project_id = ? AND status = 3 ORDER BY id ASC");
+                                        $query->bind_param("i", $id); // 'i' denotes the parameter type is an integer
+                                        $query->execute();
+                                        $result = $query->get_result()->fetch_assoc();
+                                        
+                                        $total_cost = $result['total_cost'];
+                                        $total_cost = floatval($result['total_cost']);
+
+                                        $remaining_budget = floatval($prj['overall_cost']) - $total_cost;
+
+                                            ?>
                                                     <dt><b class="border-bottom border-primary">Project Overall Cost</b>
                                                     </dt>
-                                                    <dd style="font-size: 20px;"><b>₱
+                                                    <dd style="font-size: 20px;"><b>
                                                             <?php echo $prj['overall_cost'] ?></b></dd>
+
+
+                                                            <dt><b class="border-bottom border-primary">Project Remaining Budget</b>
+                                                    </dt>
+                                                    <dd style="font-size: 20px;"><b>₱
+                                                            <?php echo $remaining_budget ?></b></dd>
+
+                                                            <dt><b class="border-bottom border-primary">Project Budget Spent</b>
+                                                    </dt>
+                                                    <dd style="font-size: 20px;"><b>₱
+                                                            <?php echo $total_cost ?></b></dd>
 
                                                     <button
                                                         style="width: 60%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-right: 12px;"
@@ -673,6 +701,61 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                 </dl>
                             </div>
                         </div>
+
+
+                        <div class="col-sm-12">
+                                        <div class="card card-outline card-primary">
+                                            <div class="card-header">
+                                                <span><b>Purchase LIst:<br><br></b></span>
+
+                                         
+
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="table-responsive">
+                                                    <table class="table table-condensed m-0 table-hover">
+
+                                                        <thead>
+                                                            
+                                                            <th>Task</th>
+                                                           
+                                                            <th>Cost</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+							$i = 1;
+							$tasks = $conn->query("SELECT * FROM task_list where project_id = {$id} order by id asc");
+							while($row=$tasks->fetch_assoc()):
+								$trans = get_html_translation_table(HTML_ENTITIES,ENT_QUOTES);
+								unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);
+								$desc = strtr(html_entity_decode($row['description']),$trans);
+								$desc=str_replace(array("<li>","</li>"), array("",", "), $desc);
+							?>
+                                                            <tr>
+                                                                
+                                                                <td class=""><b><?php echo $row['task'] ?></b>
+                                                                </td>
+                                                                <td class="">
+                                                                    <b>₱<?php echo $row['actual_cost'] ?></b>
+                            </td>
+                                                            </tr>
+                                                            <?php
+							endwhile;
+							?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
                         <div class="row">
 
 

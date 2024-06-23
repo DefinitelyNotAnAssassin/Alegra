@@ -494,6 +494,7 @@ class  adminback
 
         if(mysqli_query($this->connection, $query)){
             $query2 = "UPDATE members SET household_id = (SELECT id FROM household WHERE blk = $blk AND lot = $lot) WHERE id = $household_owner;";
+                
             if(mysqli_query($this->connection, $query2)){
                 $msg = "Household Added Successfully";
                 return $msg;
@@ -518,11 +519,9 @@ class  adminback
 
     function add_household_member($data) {
         // Extracting data from the $data array
-        $first_name = mysqli_real_escape_string($this->connection, $data['first_name']);
-        $middle_name = mysqli_real_escape_string($this->connection, $data['middle_name']);
-        $last_name = mysqli_real_escape_string($this->connection, $data['last_name']);
-        $date_of_birth = mysqli_real_escape_string($this->connection, $data['date_of_birth']);
-        $gender = mysqli_real_escape_string($this->connection, $data['gender']);
+        $id = mysqli_real_escape_string($this->connection, $data['member_id']);
+
+
         $relationship_to_head = mysqli_real_escape_string($this->connection, $data['relationship_to_head']);
         $occupation = mysqli_real_escape_string($this->connection, $data['occupation']);
         $national_id = mysqli_real_escape_string($this->connection, $data['national_id']);
@@ -533,19 +532,40 @@ class  adminback
         $social_welfare_programs = mysqli_real_escape_string($this->connection, $data['social_welfare_programs']);
         $household_id = mysqli_real_escape_string($this->connection, $data['household_id']);
         // Constructing the SQL query
-        $query = "INSERT INTO household_members (
-                    household_id, first_name, middle_name, last_name, date_of_birth, gender, 
+
+        $is_political_family = mysqli_real_escape_string($this->connection, $data['is_political_family']);
+        $is_pwd = mysqli_real_escape_string($this->connection, $data['is_pwd']);
+        $is_ethnic = mysqli_real_escape_string($this->connection, $data['is_ethnic']);
+
+
+
+        // check if member already exists in household
+
+        $query = "SELECT * FROM household_members WHERE member_id = $id AND household_id = $household_id";
+
+        if(mysqli_query($this->connection, $query)){
+            $result = mysqli_query($this->connection, $query);
+            if(mysqli_num_rows($result) > 0){
+                $msg = "Member already exists in household";
+                return $msg;
+            }
+        }
+
+
+        $query2 = "INSERT INTO household_members (
+                    household_id, member_id, 
                     relationship_to_head, occupation, national_id, social_security_number, 
-                    passport_number, other_id_description, other_id_number, social_welfare_programs
+                    passport_number, other_id_description, other_id_number, social_welfare_programs, is_ethnic, is_pwd, is_political_family
                 ) VALUES (
-                    '$household_id', '$first_name', '$middle_name', '$last_name', '$date_of_birth', '$gender', 
+                    '$household_id', '$id', 
                     '$relationship_to_head', '$occupation', '$national_id', '$social_security_number', 
-                    '$passport_number', '$other_id_description', '$other_id_number', '$social_welfare_programs'
+                    '$passport_number', '$other_id_description', '$other_id_number', '$social_welfare_programs', '$is_ethnic', '$is_pwd', '$is_political_family'
                 )";
     
         // Executing the query
-        if (mysqli_query($this->connection, $query)) {
-            $msg = "Household member added successfully.";
+        if (mysqli_query($this->connection, $query2)) {
+            header("location:household_masterlist.php");
+            exit;
         } else {
             $msg = "Failed to add household member: " . mysqli_error($this->connection);
         }
@@ -820,6 +840,8 @@ class  adminback
 
         $tsk = $data['tsk_id'];
 
+        
+
         $query = "UPDATE `task_list` SET 
         `task`='$u_task',
         `description`='$u_des',
@@ -830,10 +852,16 @@ class  adminback
         `actual_cost`='$actual_cost'
         WHERE id= $tsk";
         if (mysqli_query($this->connection, $query)) {
+
+
+
             $msg = "<div style='margin-left: 62%; width: 30%;' class='alert alert-success alert-dismissible fade show' role='alert'>
             <i class='bi bi-check-circle me-1'></i> Task successfully edited.
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
           </div>";
+
+
+
             return $msg;
             
     }

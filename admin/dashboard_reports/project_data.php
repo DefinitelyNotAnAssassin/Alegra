@@ -3,7 +3,7 @@
 
     include_once("../class/db.php");
 
-    $sqlQuery = "SELECT * FROM projects";
+    $sqlQuery = "SELECT * FROM projects WHERE status < 10 AND STATUS <> 4 AND STATUS <> 0";
 
     $result = mysqli_query($conn, $sqlQuery);
 

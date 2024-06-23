@@ -4,8 +4,10 @@ include_once("class/adminback.php");
 include_once("class/db.php");
 $obj = new adminback();
 
-
-
+$msg = $_GET['message'];
+if(isset($msg)){
+    echo "<script>alert('$msg');</script>";
+}
 
 $admin_id = $_SESSION['id'];
 $admin_name = $_SESSION['name'];
@@ -319,123 +321,11 @@ if(isset($_GET['status'])){
 
 
 <div class="pagetitle">
-  <h1>PROJECT</h1>
+  <h1>PENDING PROJECTS</h1>
   <br>
   <button style="color:#e9e5d6; background-color: #008000;" type="button"  data-bs-toggle="modal" data-bs-target="#verticalycentered" class="btn"><i class="fa-solid fa-folder-plus"></i> Add Project</button>
 </div><!-- End Page Title -->
 <br>
-<section class="section dashboard">
-  <div class="row">
-  <div style="margin: auto;" class="col-lg-8">
-
-  <div class="row">
-  <div style="text-align: center;" class="col-xxl-3 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div  class="card-body">
-                  <h5 class="card-title">All <span>| Projects</span></h5>
-
-                  <div style="margin-left: 25%;" class="d-flex align-items-center">
-                    <div style="background-color: #38a3f1; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="fa-solid fa-list-check"></i>
-                    </div>
-                    <div class="ps-3">
-
-                    <?php
-    $sql = "SELECT * from projects WHERE status != 0";
-      if ($result = mysqli_query($conn, $sql)) {
-      $rowcount = mysqli_num_rows( $result );
-      }
-      ?>
-
-                      <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div style="text-align: center;" class="col-xxl-3 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div  class="card-body">
-                  <h5 class="card-title">Done <span>| Projects</span></h5>
-
-                  <div style="margin-left: 25%;" class="d-flex align-items-center">
-                    <div style="background-color: rgb(51, 145, 87); color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="fa-solid fa-check-to-slot"></i>
-                    </div>
-                    <div class="ps-3">
-
-                    <?php
-    $sql = "SELECT * from projects WHERE status = 5";
-      if ($result = mysqli_query($conn, $sql)) {
-      $rowcount = mysqli_num_rows( $result );
-      }
-      ?>
-
-                      <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div style="text-align: center;" class="col-xxl-3 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div  class="card-body">
-                  <h5 class="card-title">Pending <span>| Projects</span></h5>
-
-                  <div style="margin-left: 25%;" class="d-flex align-items-center">
-                    <div style="background-color: #f7ce2b; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="fa-solid fa-pause"></i>
-                    </div>
-                    <div class="ps-3">
-
-                    <?php
-    $sql = "SELECT * from projects WHERE status= 0";
-      if ($result = mysqli_query($conn, $sql)) {
-      $rowcount = mysqli_num_rows( $result );
-      }
-      ?>
-
-                      <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <div style="text-align: center;" class="col-xxl-3 col-md-6">
-              <div class="card info-card sales-card">
-
-                <div  class="card-body">
-                  <h5 class="card-title">Cancelled <span>| Projects</span></h5>
-
-                  <div style="margin-left: 25%;" class="d-flex align-items-center">
-                    <div style="background-color:  rgb(240, 10, 44); color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="fa-solid fa-xmark"></i>
-                    </div>
-                    <div class="ps-3">
-
-                    <?php
-    $sql = "SELECT * from projects where status = 3";
-      if ($result = mysqli_query($conn, $sql)) {
-      $rowcount = mysqli_num_rows( $result );
-      }
-      ?>
-
-                      <h1 style="font-weight: 800;"><?php echo $rowcount ?></h1>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
 </div>
 
       <div class="card">
@@ -449,10 +339,8 @@ if(isset($_GET['status'])){
                 <th scope="col"></th>
                 <th scope="col">Project Name</th>
                 <th scope="col">Location</th>
-                <th scope="col">Task</th>
-                <th scope="col">Completed Task</th>
                 <th scope="col">Status</th>
-                <th scope="col">Progress  </th>
+                <th scope="col">Budget Requested</th>
                 <th scope="col">Action</th>
             </thead>
 
@@ -461,27 +349,15 @@ if(isset($_GET['status'])){
                 $stat = array("Pending", "Started","On-Progress","Cancelled","Over Due","Done");
                 $where = "";
 
-                $qry = $conn->query("SELECT * FROM projects WHERE status = 1 OR status = 2 OR status = 5 order by deadline desc");
+                $qry = $conn->query("SELECT * FROM projects WHERE status = 0 order by deadline desc");
                 while($row= $qry->fetch_assoc()):
                 $tprog = $conn->query("SELECT * FROM task_list where project_id = {$row['id']}")->num_rows;
                 $cprog = $conn->query("SELECT * FROM task_list where project_id = {$row['id']} and status = 3")->num_rows;
                 $cc = $conn->query("SELECT * FROM task_list where project_id = {$row['id']} and status = 2")->num_rows;
-                $projectQuery = $conn->query("SELECT overall_cost FROM projects WHERE id = {$row['id']}");
-$projectRow = $projectQuery->fetch_assoc();
-$overall_cost = $projectRow['overall_cost'];
-
-// Step 2: Calculate the sum of actual_cost for all tasks of the current project
-$taskCostQuery = $conn->query("SELECT SUM(actual_cost) AS total_actual_cost FROM task_list WHERE project_id = {$row['id']}");
-$taskCostRow = $taskCostQuery->fetch_assoc();
-$total_actual_cost = $taskCostRow['total_actual_cost'];
-
-// Step 3: Compute the ratio of total_actual_cost to overall_cost as progress
-// Ensure that overall_cost is not zero to avoid division by zero error
-$prog = $overall_cost > 0 ? ($total_actual_cost / $overall_cost) * 100 : 0;
-
-// Step 4: Format the progress as a percentage with 2 decimal places
-$prog = $prog > 0 ? number_format($prog, 2) : $prog;
-
+                $budget = $conn->query("SELECT overall_cost FROM projects where id = {$row['id']}");
+                $budget = $budget->num_rows > 0 ? $budget->fetch_assoc()['overall_cost'] : 0;
+                $prog = $tprog > 0 ? ($cprog/$tprog) * 100 : 0;
+                $prog = $prog > 0 ?  number_format($prog,2) : $prog;
                 $prod = $conn->query("SELECT * FROM user_productivity where project_id = {$row['id']}")->num_rows;
                 $dur = $conn->query("SELECT sum(time_rendered) as duration FROM user_productivity where project_id = {$row['id']}");
                 $dur = $dur->num_rows > 0 ? $dur->fetch_assoc()['duration'] : 0;
@@ -517,12 +393,7 @@ $prog = $prog > 0 ? number_format($prog, 2) : $prog;
                         <?php echo ucwords($row['location']) ?>
                       </td>
 
-                      <td class="text-center">
-                      	<?php echo number_format($tprog) ?>
-                      </td>
-                      <td class="text-center">
-                        <?php echo number_format($cprog) ?>
-                      </td>
+                     
 
                       <td style="text-transform: uppercase;" class="project-state">
 
@@ -549,19 +420,16 @@ $prog = $prog > 0 ? number_format($prog, 2) : $prog;
                       </td>
                     
                       <td class="project_progress">
-                          <div class="progress progress-sm">
-                              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $prog ?>%">
-                              </div>
-                          </div>
-                          <small>
-                              <?php echo $prog ?>% Complete
-                          </small>
+                          
+                      ₱<?php echo number_format($budget) ?>
                       </td>
 
                       <td>
-                      <a href="project_progress.php?status=view&&id=<?php echo $row['id'] ?>" type="button" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
-                      <a href="edit_project.php?status=edit&&id=<?php echo $row['id'] ?>" type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                      <a href="?status=delete&&id=<?php echo $row['id'] ?>" onclick="return confirm('Are you sure you want to delete this project? NOTE: This action cannot be undone.')"  type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
+                      
+                      <a href="approve_project.php?status=1&&id=<?php echo $row['id'] ?>" type="button" class="btn btn-success"><i class="fa-solid fa-check"></i></a>
+                      <a href="reject_project.php?status=5&&id=<?php echo $row['id'] ?>" type="button" class="btn btn-danger"><i class="fa-solid fa-times"></i></a>
+                      </td>
+                    
                       </td>
 
                   </tr>

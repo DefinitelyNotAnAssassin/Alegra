@@ -6,7 +6,7 @@
         </div>
 
         <figure class="highcharts-figure col-md-6 text-center">
-            <h3> Project Budget Overview </h3>
+            <h3> Remaining Budget </h3>
             <div id="project_budget_overview_chart"></div>
         </figure>
     </div>
@@ -117,85 +117,72 @@
 
         function showProjectBudgetOverview() {
             $.ajax({
-                url : 'dashboard_reports/project_task_data.php',
-                type : 'POST',
-                success : function (results) {
-                    const unique_projects = [...new Map(results.map(item => [item['project_id'], item])).values()]
-                    const overall_project_cost = unique_projects.reduce((acc, project) => {
-                        return parseInt(acc) + parseInt(project['overall_cost'])
-                    }, 0)
-                    const overall_task_budget = results.reduce((acc, project) => {
-                        return parseInt(acc) + parseInt(project['actual_cost'])
-                    }, 0)
+    url: 'get_current_budget.php', // Updated to the new PHP script
+    type: 'GET', // Changed to GET if no data needs to be sent
+    dataType: 'json', // Expecting JSON response
+    success: function(result) {
+        const budgetRemaining = parseInt(result.budget_remaining);
 
-                    const formatter = new Intl.NumberFormat('en-PH', {
-                        style: 'currency',
-                        currency: 'PHP'
-                    });
-                    const total_budget = formatter.format(overall_project_cost)
-                    const total_spent = formatter.format(overall_task_budget)
+        const formatter = new Intl.NumberFormat('en-PH', {
+            style: 'currency',
+            currency: 'PHP'
+        });
 
-                    const total_spent_percentage = (overall_task_budget/overall_project_cost) * 100
-                    const total_remaining_budget_percentage = 100 - total_spent_percentage
-
-                    Highcharts.chart('project_budget_overview_chart', {
-                        chart: { type: 'pie' },
-                        title: { text: null },
-                        subtitle: {
-                            text: `Overall Project Cost </br> VS </br> Overall Task Budget`,
-                            align: "center",
-                            verticalAlign: "middle",
-                            style: {
-                                "fontSize": "15px",
-                                "textAlign": "center"
-                            },
-                            x: 0,
-                            y: 20,
-                            useHTML: true
-                        },
-                        plotOptions: {
-                            pie: {
-                                shadow: false,
-                                dataLabels: {
-                                    enabled: true
-                                },
-                                states: {
-                                    hover: {
-                                        enabled: false
-                                    }
-                                },
-                                size: "100%",
-                                innerSize: "100%",
-                                borderColor: null,
-                                borderWidth: 8
-                            }
-                        },
-                        tooltip: {
-                            valueSuffix: '%'
-                        },
-                        series: [{
-                            innerSize: '70%',
-                            data: [
-                                {
-                                    name: 'Total Task Budget - ' + total_spent,
-                                    y: Math.round(total_spent_percentage * 100) / 100,
-                                    color: '#f8e9fe'
-                                }, 
-                                {
-                                    name: 'Total Project Cost - ' + total_budget,
-                                    y: Math.round(total_remaining_budget_percentage * 100) / 100,
-                                    color: '#a501fd'
-                                }
-                            ]
-                        }],
-                        exporting: { enabled: false },
-                        credits: { enabled: false },
-                    });
+        const totalBudgetRemaining = formatter.format(budgetRemaining);
+ 
+        Highcharts.chart('project_budget_overview_chart', {
+            chart: { type: 'pie' },
+            title: { text: null },
+            subtitle: {
+                text: `Budget Remaining <br> ${totalBudgetRemaining}`,
+                align: "center",
+                verticalAlign: "middle",
+                style: {
+                    "fontSize": "15px",
+                    "textAlign": "center"
                 },
-                error : function (xhr, status, error) {
-                    console.log(xhr.responseText);
+                x: 0,
+                y: 20,
+                useHTML: true
+            },
+            plotOptions: {
+                pie: {
+                    shadow: false,
+                    dataLabels: {
+                        enabled: true
+                    },
+                    states: {
+                        hover: {
+                            enabled: false
+                        }
+                    },
+                    size: "100%",
+                    innerSize: "100%",
+                    borderColor: null,
+                    borderWidth: 8
                 }
-            });
+            },
+            tooltip: {
+                valueSuffix: ' PHP'
+            },
+            series: [{
+                innerSize: '70%',
+                data: [
+                    {
+                        name: 'Budget Remaining',
+                        y: budgetRemaining,
+                        color: '#41b4d3'
+                    }
+                ]
+            }],
+            exporting: { enabled: false },
+            credits: { enabled: false },
+        });
+    },
+    error: function(xhr, status, error) {
+        console.log(xhr.responseText);
+    }
+});
         }
 
         function showTaskSpendingOverview() {

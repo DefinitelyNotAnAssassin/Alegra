@@ -82,20 +82,26 @@ if(isset($_POST['add_household_member'])){
                     </div>
                     <div class="modal-body">
  <form class="row g-3 needs-validation" novalidate action="" autocomplete="" method="POST" enctype="multipart/form-data">
-
-
-  <div class="col-md-4">
-    <label for="validationCustom01" class="form-label">Blk #</label>
-    <input name="blk" type="text" class="form-control" id="validationCustom01" value="" required>
-    <div class="invalid-feedback">
-    Please enter first name.
-    </div>
+<div class="col-md-4">
+  <label for="validationCustom01" class="form-label">Blk #</label>
+  <select name="blk" class="form-control" id="validationCustom01" required>
+    <?php for ($i = 1; $i <= 10; $i++): ?>
+      <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+    <?php endfor; ?>
+  </select>
+  <div class="invalid-feedback">
+    Please select a block number.
   </div>
+</div>
 
-  <div class="col-md-4">
-    <label for="validationCustom02" class="form-label">Lot #</label>
-    <input name="lot" type="text" class="form-control" id="" value="" >
-  </div>
+<div class="col-md-4">
+  <label for="validationCustom02" class="form-label">Lot #</label>
+  <select name="lot" class="form-control" id="validationCustom02">
+    <?php for ($i = 1; $i <= 10; $i++): ?>
+      <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+    <?php endfor; ?>
+  </select>
+</div>
 
   <div class="col-md-4">
     <label for="validationCustom03" class="form-label">Household Owner</label>
@@ -162,78 +168,76 @@ if(isset($_POST['add_household_member'])){
               </div>
 
               <div class="col-md-4">
-
-                
+                <label for="validationCustom01" class="form-label">Member</label>
+                <select  name="member_id" type="text" class="form-control" id="validationCustom02" value="" required>
+                <?php foreach ($members as $member): ?>
+                    <option value="<?php echo htmlspecialchars($member['id']); ?>">
+                        <?php echo htmlspecialchars($member['first_name']) . " " . htmlspecialchars($member['last_name']); ?>
+                    </option>
+                <?php endforeach; ?>
+                </select>
                 <div class="invalid-feedback">
-                Please enter last name.
+                Please enter first name.
                 </div>
               </div>
+
+              
 
               <div class="col-md-4">
                 
               </div>
 
 
-              <div class="form-group col-md-4">
-        <label for="first_name">First Name:</label>
-        <input type="text" class="form-control" id="first_name" name="first_name" required>
+
+           
+    <div class="form-group col-md-4">
+      <label for="relationship_to_head">Relationship to Head:</label>
+      <input type="text" class="form-control" id="relationship_to_head" placeholder="(Optional)" name="relationship_to_head">
     </div>
     <div class="form-group col-md-4">
-        <label for="middle_name">Middle Name:</label>
-        <input type="text" class="form-control" id="middle_name" name="middle_name">
+      <label for="occupation">Occupation:</label>
+      <input type="text" class="form-control" id="occupation" placeholder="(Optional)" name="occupation">
     </div>
     <div class="form-group col-md-4">
-        <label for="last_name">Last Name:</label>
-        <input type="text" class="form-control" id="last_name" name="last_name" required>
+      <label for="national_id">National ID:</label>
+      <input type="text" class="form-control" id="national_id" placeholder="(Optional)" name="national_id">
     </div>
     <div class="form-group col-md-4">
-        <label for="date_of_birth">Date of Birth:</label>
-        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+      <label for="social_security_number">Social Security Number:</label>
+      <input type="text" class="form-control" id="social_security_number" placeholder="(Optional)" name="social_security_number">
     </div>
     <div class="form-group col-md-4">
-        <label for="gender">Gender:</label>
-        <select class="form-control" id="gender" name="gender" required>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-        </select>
+      <label for="passport_number">Passport Number:</label>
+      <input type="text" class="form-control" id="passport_number" placeholder="(Optional)" name="passport_number">
     </div>
     <div class="form-group col-md-4">
-        <label for="relationship_to_head">Relationship to Head of Household:</label>
-        <select class="form-control" id="relationship_to_head" name="relationship_to_head" required>
-            <option value="Head">Head</option>
-            <option value="Spouse">Spouse</option>
-            <option value="Child">Child</option>
-            <option value="Other">Other</option>
-        </select>
+      <label>Additional Information:</label>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_ethnic" name="is_ethnic">
+        <label class="form-check-label" for="is_ethnic">Is Ethnic</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_pwd" name="is_pwd">
+        <label class="form-check-label" for="is_pwd">Is PWD</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_political_family" name="is_political_family">
+        <label class="form-check-label" for="is_political_family">Is Political Family</label>
+      </div>
     </div>
-    <div class="form-group col-md-4">
-        <label for="occupation">Occupation:</label>
-        <input type="text" class="form-control" id="occupation" name="occupation">
-    </div>
-    <div class="form-group col-md-4">
-        <label for="national_id">National ID:</label>
-        <input type="text" class="form-control" id="national_id" placeholder = "(Optional)" name="national_id">
-    </div>
-    <div class="form-group col-md-4">
-        <label for="social_security_number">Social Security Number:</label>
-        <input type="text" class="form-control" id="social_security_number" placeholder = "(Optional)" name="social_security_number">
-    </div>
-    <div class="form-group col-md-4">
-        <label for="passport_number">Passport Number:</label>
-        <input type="text" class="form-control" id="passport_number" placeholder = "(Optional)" name="passport_number">
-    </div>
-    <div class="form-group col-md-4">
-        <label for="other_id_description">Other ID Description:</label>
-        <input type="text" class="form-control" id="other_id_description" placeholder = "(Optional)" name="other_id_description">
-    </div>
+    
     <div class="form-group col-md-4">
         <label for="other_id_number">Other ID Number:</label>
         <input type="text" class="form-control" id="other_id_number" placeholder = "(Optional)" name="other_id_number">
     </div>
+
+    <div class="form-group col-md-4">
+      <label for="other_id_description">Other ID Description:</label>
+      <input type="text" class="form-control" id="other_id_description" placeholder="(Optional)" name="other_id_description">
+    </div>
     <div class="form-group col-md-4">
         <label for="social_welfare_programs">Social Welfare Programs:</label>
-        <input type="text" class="form-control" id="social_welfare_programs placeholder = "(Optional)"" name="social_welfare_programs">
+        <input type="text" class="form-control" id="social_welfare_programs" placeholder = "(Optional)" name="social_welfare_programs">
     </div>
  
                                 </div>
@@ -253,15 +257,15 @@ if(isset($_POST['add_household_member'])){
 <!-- Household Details Modal -->
 
 
-<div class="modal fade" id="householdDetails" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <div class="modal-content">
+<div class="modal fade"  id="householdDetails" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-lg" >
+                  <div class="modal-content" >
                     <div class="modal-header">
                       <h5 class="modal-title">Household Details</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <h1 id="householdMembers"></h1>
+                    <div class="modal-body"  >
+                        <div id="householdMembers"></div>
                     </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -383,9 +387,10 @@ $households = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </thead>
       <tbody>
         <?php foreach ($households as $household): 
-            
-           
-            $query = "SELECT first_name, last_name FROM household_members WHERE household_id = " . $household['id'];
+          $query = "SELECT m.first_name, m.last_name, hm.relationship_to_head, hm.occupation, hm.social_security_number, hm.passport_number, hm.other_id_description, hm.other_id_number, hm.social_welfare_programs, hm.is_pwd, hm.is_political_family, hm.is_ethnic
+                FROM household_members hm
+                JOIN members m ON hm.member_id = m.id
+                WHERE hm.household_id = " . $household['id'];
       $result = mysqli_query($conn, $query);
       if (!$result) {
         // Handle error, e.g., log it or display a message
@@ -394,23 +399,14 @@ $households = mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
             $members = mysqli_fetch_all($result, MYSQLI_ASSOC);
             
-            // Initialize an array to hold member names
-            $memberNames = [];
-            foreach ($members as $member) {
-                // Concatenate each member's first and last name and add to the array
-                $memberNames[] = htmlspecialchars($member['first_name']) . ' ' . htmlspecialchars($member['last_name']);
-            }
-            
-            // Convert the array of names into a string
-            $membersString = implode(", ", $memberNames);
+        
       ?>
         <tr>
           <td><?= htmlspecialchars($household['blk']) ?></td>
           <td><?= htmlspecialchars($household['lot']) ?></td>
           <td><?= htmlspecialchars($household['first_name']) ?></td>
           <td><?= htmlspecialchars($household['last_name']) ?></td>
-          <td><button data-bs-toggle="modal" data-bs-target="#householdDetails" onclick="changeMembers('<?php echo $membersString; ?>')">View Members</button></td>
-
+          <td><button data-bs-toggle="modal" data-bs-target="#householdDetails"  onclick="changeMembers('<?php echo htmlspecialchars(json_encode($members), ENT_QUOTES, 'UTF-8'); ?>')">View Members</button></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -475,14 +471,51 @@ $(document).ready(function() {
 
 const changeMembers = (householdMembers) => {
   const houseMembers = document.getElementById('householdMembers');
-  const members = householdMembers.split(', ');
-  houseMembers.innerHTML = '';
-  members.forEach(member => {
-    const memberElement = document.createElement('p');
-    memberElement.textContent = member;
-    houseMembers.appendChild(memberElement);
+  houseMembers.style.overflow = 'auto';
+  let tableContent = '';
+  householdMembers = JSON.parse(householdMembers);
+  householdMembers.forEach(member => {
+    tableContent += `
+      <tr>
+        <td>${member.first_name}</td>
+        <td>${member.last_name}</td>
+        <td>${member.relationship_to_head}</td>
+        <td>${member.occupation}</td>
+        <td>${member.social_security_number}</td>
+        <td>${member.passport_number}</td>
+        <td>${member.other_id_description}</td>
+        <td>${member.other_id_number}</td>
+        <td>${member.social_welfare_programs}</td>
+        <td>${member.is_pwd}</td>
+        <td>${member.is_political_family}</td>
+        <td>${member.is_ethnic}</td>
+      </tr>
+    `;
   });
-  
+
+  houseMembers.innerHTML = `
+    <table class="table table-striped">
+      <thead>
+        <tr class = "table-row">
+          <th scope = 'col'>First Name</th>
+          <th scope = 'col'>Last Name</th>
+          <th scope = 'col'>Relationship to Head</th>
+          <th scope = 'col'>Occupation</th>
+          <th scope = 'col'>Social Security Number</th>
+          <th scope = 'col'>Passport Number</th>
+          <th scope = 'col'>Other ID Description</th>
+          <th scope = 'col'>Other ID Number</th>
+          <th scope = 'col'>Social Welfare Programs</th>
+          <th scope = 'col'>Is PWD</th>
+          <th scope = 'col'>Is Political Family</th>
+          <th scope = 'col'>Is Ethnic</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${tableContent}
+      </tbody>
+    </table>
+  `;
 
 }
 

@@ -16,6 +16,13 @@ if(isset($_GET['status'])){
   $tsk = $obj->display_taskmember($per_id);
   $prjcon = $obj->display_prjpgrs_con($per_id);
 
+  $total_spent = "SELECT SUM(actual_cost) FROM task_list WHERE project_id = $per_id AND status = 3";
+    $total_spent = $conn->query($total_spent);
+    $total_spent = $total_spent->fetch_assoc();
+    $total_spent = $total_spent['SUM(actual_cost)'];
+    $total_spent = floatval($total_spent);
+
+
   }
 }
 
@@ -173,11 +180,7 @@ button {
                         if(isset($_SESSION['id'])){
 
                             ?>
-                        <button
-                            style="width: 3 q0%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-right: 12px;"
-                            type="button" data-bs-toggle="modal" data-bs-target="#prjhistory" class="btn">
-                            <i class="fa-solid fa-eye"></i> View Project
-                            Contribution</button>
+                 
                         <br>
                         <br>
                         <?php
@@ -233,6 +236,17 @@ button {
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-4 label">Overall Cost</div>
                                                 <div class="col-lg-9 col-md-8">₱ <?php echo $pr['overall_cost']?></div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Remaining Budget</div>
+                                                <div class="col-lg-9 col-md-8">₱ <?php echo $pr['overall_cost'] - $total_spent?></div>
+                                            </div>
+
+
+                                            <div class="row">
+                                                <div class="col-lg-3 col-md-4 label">Total Budget Spent</div>
+                                                <div class="col-lg-9 col-md-8">₱ <?php echo $total_spent?></div>
                                             </div>
 
                                         </div>

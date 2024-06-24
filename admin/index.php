@@ -228,7 +228,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 2 order by lot_number asc";
+    $sql = "SELECT * from household where blk = 2 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }
@@ -306,7 +306,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 3 order by lot_number asc";
+     $sql = "SELECT * from household where blk = 3 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }
@@ -381,7 +381,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 4 order by lot_number asc";
+    $sql = "SELECT * from household where blk = 4 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }
@@ -456,7 +456,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 5 order by lot_number asc";
+     $sql = "SELECT * from household where blk = 5 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }
@@ -531,7 +531,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 6 order by lot_number asc";
+     $sql = "SELECT * from household where blk = 6 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }
@@ -606,7 +606,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 7 order by lot_number asc";
+     $sql = "SELECT * from household where blk = 7 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }
@@ -681,7 +681,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 8 order by lot_number asc";
+     $sql = "SELECT * from household where blk = 8 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }
@@ -756,7 +756,7 @@ $(document).ready(function () {
                   <div style="margin-left: 38%;" class="d-flex align-items-center">
                     <div style="background-color:  #8bc349; color: white; " class="card-icon rounded-circle d-flex align-items-center justify-content-center">
               <?php
-    $sql = "SELECT * from members where block_number = 9 order by lot_number asc";
+     $sql = "SELECT * from household where blk = 9 order by lot asc";
       if ($result = mysqli_query($conn, $sql)) {
       $rowcount = mysqli_num_rows( $result );
       }

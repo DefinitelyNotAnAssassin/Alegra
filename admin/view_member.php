@@ -405,6 +405,7 @@ $project = $obj->display_project_fin();
                                                                         <td>
                                                                             <button type="button" data-bs-toggle="modal"
                                                                                 data-bs-target="#verticalycentered"
+                                                                                data-amount = "<?php echo $ff['amount']; ?>"
                                                                                 class="btn btn-warning edit-item-btn"><i
                                                                                     class="fa-solid fa-pen-to-square"></i></button>
                                                                         </td>
@@ -465,9 +466,9 @@ $project = $obj->display_project_fin();
                                     </option>
                                 </select>
 
-                                <label class="col-sm-6 col-form-label">Amount Paid</label>
+                        
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="amount" type="number"  class="form-control" id="Address" value = <?php echo 1000 ?>>
+                                    <input name="amount" type="hidden"  class="form-control" id="amountFee" value = <?php echo 1000 ?>>
                                 </div>
 
                             </div>
@@ -521,7 +522,7 @@ $project = $obj->display_project_fin();
 
                                 <label class="col-sm-6 col-form-label">Amount Paid</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="amount" type="number" class="form-control" id="Address" value="0">
+                                    <input name="amount" type="number" class="form-control" id="amountInput" value="0">
                                 </div>
 
                             </div>
@@ -678,7 +679,27 @@ $(document).ready(function () {
     $('#example1').DataTable();
 });
 
+
     </script>
+
+    
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var myModal = document.getElementById('verticalycentered');
+  myModal.addEventListener('show.bs.modal', function (event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget;
+    // Extract info from data-* attributes
+    var amount = button.getAttribute('data-amount');
+
+    console.log(amount)
+    // Update the modal's content.
+    var modalInput = document.getElementById('amountFee'); // Corrected line
+  
+    modalInput.value = amount;
+  });
+});
+</script>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

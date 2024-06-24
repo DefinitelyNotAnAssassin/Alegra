@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2023 at 10:20 AM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Jun 24, 2024 at 11:09 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `current_budget`
+-- (See below for the actual view)
+--
+CREATE TABLE `current_budget` (
+`budget_remaining` double
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `finances`
 --
 
@@ -36,7 +46,7 @@ CREATE TABLE `finances` (
   `date` date NOT NULL DEFAULT current_timestamp(),
   `deadline` date NOT NULL DEFAULT current_timestamp(),
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `finances`
@@ -47,7 +57,84 @@ INSERT INTO `finances` (`id`, `user_id`, `amount`, `bal`, `type`, `date`, `deadl
 (2, 2, 1000, 0, 'Membership Fee', '2023-06-17', '2023-06-17', 1),
 (3, 4, 1000, 0, 'Membership Fee', '2023-06-18', '2024-06-18', 1),
 (4, 18, 1000, 0, 'Membership Fee', '2023-06-18', '2024-06-18', 1),
-(5, 19, 1000, 0, 'Membership Fee', '2023-06-18', '2024-06-18', 1);
+(5, 19, 1000, 0, 'Membership Fee', '2023-06-18', '2024-06-18', 1),
+(6, 19, 1000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(7, 19, 1000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(8, 4, 1000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(9, 20, 1000, 0, 'Membership Fee', '2024-06-24', '2025-06-23', 1),
+(10, 20, 1000, 0, 'Membership Fee', '2024-06-24', '2025-06-24', 1),
+(11, 20, 1000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(12, 2, 1000, 0, 'Membership Fee', '2024-06-24', '2025-06-23', 1),
+(13, 2, 1000, 0, 'Membership Fee', '2024-06-24', '2025-06-24', 1),
+(14, 2, 10000, 0, 'Membership Fee', '2024-06-24', '2025-06-24', 1),
+(15, 2, 30000, 0, 'Membership Fee', '2024-06-24', '2025-06-24', 1),
+(16, 2, 1000, 0, 'Membership Fee', '2024-06-24', '2025-06-24', 1),
+(17, 2, 1000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(18, 2, 1000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(19, 2, 2000, 0, 'Membership Fee', '2024-06-24', '2025-06-24', 1),
+(20, 2, 12000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(21, 2, 36000, 0, 'Membership Fee', '2024-06-24', '2025-06-24', 1),
+(22, 20, 1000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0),
+(23, 20, 6000, 0, 'Membership Fee', '2024-06-24', '2024-06-24', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `household`
+--
+
+CREATE TABLE `household` (
+  `Blk` varchar(255) NOT NULL,
+  `Lot` varchar(255) NOT NULL,
+  `household_owner` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `household`
+--
+
+INSERT INTO `household` (`Blk`, `Lot`, `household_owner`, `id`) VALUES
+('1', '1', 4, 14),
+('1', '2', 19, 15),
+('2', '3', 4, 16),
+('4', '5', 4, 17);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `household_members`
+--
+
+CREATE TABLE `household_members` (
+  `id` int(11) NOT NULL,
+  `relationship_to_head` varchar(255) NOT NULL,
+  `occupation` varchar(255) DEFAULT NULL,
+  `national_id` varchar(255) DEFAULT NULL,
+  `social_security_number` varchar(255) DEFAULT NULL,
+  `passport_number` varchar(255) DEFAULT NULL,
+  `other_id_description` varchar(255) DEFAULT NULL,
+  `other_id_number` varchar(255) DEFAULT NULL,
+  `social_welfare_programs` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `household_id` int(11) DEFAULT NULL,
+  `member_id` int(11) DEFAULT NULL,
+  `is_pwd` tinyint(1) DEFAULT 0,
+  `is_political_family` tinyint(1) DEFAULT 0,
+  `is_ethnic` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `household_members`
+--
+
+INSERT INTO `household_members` (`id`, `relationship_to_head`, `occupation`, `national_id`, `social_security_number`, `passport_number`, `other_id_description`, `other_id_number`, `social_welfare_programs`, `created_at`, `updated_at`, `household_id`, `member_id`, `is_pwd`, `is_political_family`, `is_ethnic`) VALUES
+(7, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 19:58:03', '2024-06-20 19:58:03', 14, 3, 0, 0, 0),
+(8, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 19:58:52', '2024-06-20 19:58:52', 15, 4, 0, 0, 0),
+(9, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:02:01', '2024-06-20 20:02:01', 15, 19, 0, 0, 0),
+(10, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:03:31', '2024-06-20 20:03:31', 14, 2, 0, 0, 0),
+(14, '123', '123', '123', '123', '123', '123', '123', '123', '2024-06-23 18:31:26', '2024-06-23 18:31:26', 14, 4, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -68,20 +155,21 @@ CREATE TABLE `members` (
   `password` varchar(250) NOT NULL,
   `user_image` varchar(250) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
-  `date_added` date DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_added` date DEFAULT current_timestamp(),
+  `household_id` int(11) DEFAULT NULL,
+  `membership_plan` varchar(255) DEFAULT 'Monthly'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `block_number`, `lot_number`, `first_name`, `mid_name`, `last_name`, `gender`, `contact`, `username`, `password`, `user_image`, `status`, `date_added`) VALUES
-(2, 8, 17, 'Krisha', '', 'Maldonado', 'Female', '09121234567', 'kris', 'kris', 'dp2.png', 1, '2023-06-18'),
-(3, 8, 16, 'Annalyza', 'Sarah', 'Maldonado', 'Rather Not Say', '09123456789', 'sample_user', 'sample_user', 'dp1.png', 1, '2023-06-18'),
-(4, 9, 2, 'Princess', 'Sarah', 'Does', 'Female', '', 'sarah', 'sarah', '68754d3618d624a051c3f38dc5a732cd.jpg', 1, '2023-06-18'),
-(12, 9, 5, 'Astro', 'Astro', 'Astro', 'Male', '09123456789', 'astro', 'astro', '883bf9b29dbd1c3b7f747efe8e12fedf.jpg', 1, '2023-06-18'),
-(18, 2, 5, 'Sample', 'User', 'User', 'Male', '09123456789', 'lando', 'alegraheights', 'messages-3.jpg', 1, '2023-06-18'),
-(19, 9, 11, 'Sarah', 'Doe', 'Doe', 'Female', '09123456789', 'sarah', 'alegraheights', 'messages-2.jpg', 1, '2023-06-18');
+INSERT INTO `members` (`id`, `block_number`, `lot_number`, `first_name`, `mid_name`, `last_name`, `gender`, `contact`, `username`, `password`, `user_image`, `status`, `date_added`, `household_id`, `membership_plan`) VALUES
+(2, 8, 17, 'Krisha', '', 'Maldonado', 'Female', '09121234567', 'kris', 'kris', 'dp2.png', 1, '2023-06-18', 9, 'Annually'),
+(3, 8, 16, 'Annalyza', 'Sarah', 'Maldonado', 'Rather Not Say', '09123456789', 'sample_user', 'sample_user', 'dp1.png', 1, '2023-06-18', 13, 'Monthly'),
+(4, 9, 2, 'Princess', 'Sarah', 'Does', 'Female', '', 'sarah', 'sarah', '68754d3618d624a051c3f38dc5a732cd.jpg', 1, '2023-06-18', 17, 'Monthly'),
+(19, 9, 11, 'Sarah', 'Doe', 'Doe', 'Female', '09123456789', 'sarah', 'alegraheights', 'messages-2.jpg', 1, '2023-06-18', 15, 'Monthly'),
+(20, 1, 1, 'Winmari', '', 'Manzano', 'Male', '1', '1', '12121', '448262227_10232385425642472_8136769368041204756_n.jpg', 1, '2024-06-24', NULL, 'Semi-Annually');
 
 -- --------------------------------------------------------
 
@@ -95,27 +183,32 @@ CREATE TABLE `payment_log` (
   `project_name` varchar(250) NOT NULL,
   `amount` int(11) NOT NULL,
   `date_paid` date NOT NULL,
-  `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `user_id` int(11) NOT NULL,
+  `status` varchar(255) DEFAULT 'Unpaid'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `payment_log`
 --
 
-INSERT INTO `payment_log` (`id`, `type`, `project_name`, `amount`, `date_paid`, `user_id`) VALUES
-(1, '0', '', 250, '0000-00-00', 3),
-(2, 'Membership Fee', '', 250, '0000-00-00', 2),
-(3, 'Project Contribution', 'Parol Project', 250, '0000-00-00', 3),
-(4, 'Project Contribution', 'Parol Project', 25, '2023-06-18', 3),
-(5, 'Membership Fee', '', 1000, '2023-06-18', 3),
-(6, 'Project Contribution', '', 1000, '2023-06-18', 3),
-(7, 'Project Contribution', '', 1000, '2023-06-18', 3),
-(8, 'Project Contribution', '', 1000, '2023-06-18', 3),
-(9, 'Membership Fee', '', 1000, '2023-06-18', 3),
-(10, 'Membership Fee', '', 1000, '2023-06-18', 4),
-(11, 'Membership Fee', '', 1000, '2023-06-18', 18),
-(12, 'Membership Fee', '', 1000, '2023-06-18', 19),
-(13, 'Project Contribution', 'Sample Project', 900, '2023-06-18', 19);
+INSERT INTO `payment_log` (`id`, `type`, `project_name`, `amount`, `date_paid`, `user_id`, `status`) VALUES
+(1, '0', '', 250, '0000-00-00', 3, 'Paid'),
+(2, 'Membership Fee', '', 250, '0000-00-00', 2, 'Paid'),
+(3, 'Project Contribution', 'Parol Project', 250, '0000-00-00', 3, 'Paid'),
+(4, 'Project Contribution', 'Parol Project', 25, '2023-06-18', 3, 'Paid'),
+(5, 'Membership Fee', '', 1000, '2023-06-18', 3, 'Paid'),
+(6, 'Project Contribution', '', 1000, '2023-06-18', 3, 'Paid'),
+(7, 'Project Contribution', '', 1000, '2023-06-18', 3, 'Paid'),
+(8, 'Project Contribution', '', 1000, '2023-06-18', 3, 'Paid'),
+(9, 'Membership Fee', '', 1000, '2023-06-18', 3, 'Paid'),
+(13, 'Project Contribution', 'Sample Project', 900, '2023-06-18', 19, 'Paid'),
+(20, 'Membership Fee', '', 10000, '2024-06-24', 2, 'Paid'),
+(21, 'Membership Fee', '', 30000, '2024-06-24', 2, 'Paid'),
+(22, 'Membership Fee', '', 1500, '2024-06-24', 2, 'Paid'),
+(23, 'Membership Fee', '', 1000, '2024-06-24', 2, 'Paid'),
+(24, 'Membership Fee', '', 1000, '2024-06-24', 2, 'Paid'),
+(25, 'Membership Fee', '', 1, '2024-06-24', 2, 'Paid'),
+(26, 'Membership Fee', '', 10000, '2024-06-24', 20, 'Paid');
 
 -- --------------------------------------------------------
 
@@ -138,18 +231,16 @@ CREATE TABLE `projects` (
   `proposed_project` int(5) NOT NULL,
   `date_added` date NOT NULL,
   `status` int(11) NOT NULL COMMENT '0-pending\r\n1-started\r\n2-onprogress\r\n3-cancelled\r\n5-done'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `projects`
 --
 
 INSERT INTO `projects` (`id`, `project`, `description`, `location`, `overall_cost`, `start_date`, `deadline`, `site_pic`, `site_pic1`, `site_pic2`, `tid`, `proposed_project`, `date_added`, `status`) VALUES
-(1, 'Covered Court', '\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget turpis sapien. Vestibulum fringilla, lacus semper dignissim sagittis, augue metus suscipit mi, eu varius dolor ligula dapibus lectus. Sed sollicitudin, velit sit amet rutrum ullamcorper, nibh metus rutrum erat, eu accumsan odio magna vel dolor. Vestibulum efficitur finibus euismod. Sed eu quam ornare, facilisis augue a, fringilla sem. Maecenas in fermentum est. Mauris ex ante, ultrices sit amet sem quis, iaculis consectetur erat. Morbi hendrerit justo consectetur leo pretium, sed accumsan felis lobortis. Suspendisse eget sem eu ipsum egestas dictum. Nam quis pharetra sapien. Etiam massa orci, euismod in magna id, hendrerit pretium nisi.', 'Sample', '30000000', '2019-02-08', '2023-06-30', '12.jpg', 'blueprint-15323.jpeg', 'download.jpg', 1, 1, '2020-10-05', 1),
-(2, 'Sample', '\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget turpis sapien. Vestibulum fringilla, lacus semper dignissim sagittis, augue metus suscipit mi, eu varius dolor ligula dapibus lectus. Sed sollicitudin, velit sit amet rutrum ullamcorper, nibh metus rutrum erat, eu accumsan odio magna vel dolor. Vestibulum efficitur finibus euismod. Sed eu quam ornare, facilisis augue a, fringilla sem. Maecenas in fermentum est. Mauris ex ante, ultrices sit amet sem quis, iaculis consectetur erat. Morbi hendrerit justo consectetur leo pretium, sed accumsan felis lobortis. Suspendisse eget sem eu ipsum egestas dictum. Nam quis pharetra sapien. Etiam massa orci, euismod in magna id, hendrerit pretium nisi.', 'Alegra Heights', '100000', '2023-05-09', '2023-06-22', '12.jpg', 'blueprint-15323.jpeg', 'download.jpg', 0, 5, '2023-05-01', 5),
-(8, 'Astro', 'Astreo  ', 'Astro', '10000', '2023-06-08', '2023-06-27', '68754d3618d624a051c3f38dc5a732cd.jpg', 'minimalist-astronaut-hd-wallpaper-1920x1080.jpg', '883bf9b29dbd1c3b7f747efe8e12fedf.jpg', 0, 0, '2023-06-05', 3),
-(9, 'Parol Project', '\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget turpis sapien. Vestibulum fringilla, lacus semper dignissim sagittis, augue metus suscipit mi, eu varius dolor ligula dapibus lectus. Sed sollicitudin, velit sit amet rutrum ullamcorper, nibh metus rutrum erat, eu accumsan odio magna vel dolor. Vestibulum efficitur finibus euismod. Sed eu quam ornare, facilisis augue a, fringilla sem. Maecenas in fermentum est. Mauris ex ante, ultrices sit amet sem quis, iaculis consectetur erat. Morbi hendrerit justo consectetur leo pretium, sed accumsan felis lobortis. Suspendisse eget sem eu ipsum egestas dictum. Nam quis pharetra sapien. Etiam massa orci, euismod in magna id, hendrerit pretium nisi.', 'Court', '10000', '2023-06-08', '2023-06-28', '12.jpg', 'blueprint-15323.jpeg', 'download.jpg', 0, 0, '2023-06-05', 2),
-(11, 'Sample Project', 'Lorem Ipsum Lorem Ipsum Lorem Ipsum  ', 'Court', '2000', '2023-06-22', '2023-07-22', 'bas.jpg', 'card.jpg', 'news-5.jpg', 0, 0, '2023-06-18', 2);
+(16, 'Lorem Ipsum', 'Lorem ', 'Test', '5000', '2024-05-28', '2024-07-02', '1798772931-cb53d0383b3052977eb1e0512a3585af16da63d0adf88568483f03b29ee373b4-d.webp', '1798772931-cb53d0383b3052977eb1e0512a3585af16da63d0adf88568483f03b29ee373b4-d.webp', '1798772931-cb53d0383b3052977eb1e0512a3585af16da63d0adf88568483f03b29ee373b4-d.webp', 0, 0, '2024-06-23', 5),
+(17, '', '', '', '0', '0000-00-00', '0000-00-00', '', '', '', 0, 0, '0000-00-00', 10),
+(18, '1', '1', '1', '11111', '2024-06-19', '2024-07-05', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', 0, 0, '2024-06-24', 1);
 
 -- --------------------------------------------------------
 
@@ -161,7 +252,7 @@ CREATE TABLE `project_division` (
   `pd_id` int(11) NOT NULL,
   `division` varchar(100) NOT NULL,
   `project_type` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `project_division`
@@ -184,7 +275,7 @@ CREATE TABLE `project_partition` (
   `pp_id` int(10) NOT NULL,
   `project_id` int(10) NOT NULL,
   `pd_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `project_partition`
@@ -215,7 +306,7 @@ CREATE TABLE `project_progress` (
   `progress` int(2) NOT NULL,
   `date_added` date NOT NULL,
   `partition_img` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `project_progress`
@@ -258,7 +349,7 @@ CREATE TABLE `project_team` (
   `date_added` date NOT NULL,
   `eid` int(10) NOT NULL,
   `pio` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `project_team`
@@ -283,7 +374,7 @@ CREATE TABLE `proj_con` (
   `date_paid` date NOT NULL,
   `deadline` date NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `proj_con`
@@ -308,7 +399,7 @@ CREATE TABLE `reply` (
   `user_id` int(11) NOT NULL,
   `user` varchar(250) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reply`
@@ -347,7 +438,7 @@ CREATE TABLE `report` (
   `report_img` varchar(250) NOT NULL,
   `date_added` datetime DEFAULT current_timestamp(),
   `status` varchar(250) NOT NULL DEFAULT '0' COMMENT '0-needs attention\r\n1 - investigating\r\n2-resolved\r\n3-unresolved'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `report`
@@ -389,7 +480,7 @@ CREATE TABLE `reserve` (
   `purpose` varchar(250) NOT NULL,
   `date_res` datetime NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1 COMMENT '1-pending\r\n2-approved\r\n3-cancelled\r\n4-rejected'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reserve`
@@ -417,28 +508,29 @@ CREATE TABLE `task_list` (
   `status` int(4) NOT NULL,
   `date_created` datetime NOT NULL,
   `deadline` date NOT NULL,
-  `start_date` date NULL,
-  `estimated_cost` DECIMAL(19, 4) NOT NULL,
-  `actual_cost` DECIMAL(19, 4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `start_date` date DEFAULT NULL,
+  `estimated_cost` decimal(19,4) NOT NULL,
+  `actual_cost` decimal(19,4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `task_list`
 --
 
 INSERT INTO `task_list` (`id`, `project_id`, `task`, `description`, `staff`, `status`, `date_created`, `deadline`, `start_date`, `estimated_cost`, `actual_cost`) VALUES
-(1, 2, 'Re-paint Court - update', 'Quisque viverra facilisis lorem sit amet euismod. Fusce vitae semper leo. Morbi nisl sem, porta non erat posuere, aliquam pellentesque mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames - update', 'Sample Staff', 3, '2023-06-03 10:13:30', '2023-09-06', '2023-07-05', 100000.0000, 150000.0000),
-(3, 2, 'sample', 'asdasdasdasd', '', 3, '2023-06-05 00:00:00', '2023-09-17', '2023-07-11', 120000.0000, 150000.0000),
-(6, 2, 'Sample Task', 'test', '', 3, '2023-06-05 00:00:00', '2023-09-24', '2023-07-10', 200000.0000, 250000.0000),
-(7, 8, 'Sample Task', 'Sample Task', '', 1, '2023-06-05 00:00:00', '2023-09-07', '2023-07-17', 170000.0000, 220000.0000),
-(8, 4, 'Sample Task', 'asdsa', '', 3, '2023-06-05 00:00:00', '2023-09-16', '2023-06-28', 200000.0000, 250000.0000),
-(9, 4, 'Sample Task', '123', '', 2, '2023-06-05 00:00:00', '2023-09-17', '2023-06-27', 300000.0000, 350000.0000),
-(10, 1, 'Sample Task', 'mnnm', '', 2, '2023-06-05 00:00:00', '2023-09-20', '2023-07-22', 400000.0000, 500000.0000),
-(11, 9, 'Sample Task', 'Quisque viverra facilisis lorem sit amet euismod. Fusce vitae semper leo. Morbi nisl sem, porta non erat posuere, aliquam pellentesque mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames - update', 'Princess Does', 3, '2023-06-07 00:00:00', '2023-09-14', '2023-06-19', 90000.0000, 140000.0000),
-(12, 9, 'Sample Task', 'sdadasdas', 'Astro Astro', 1, '2023-06-07 00:00:00', '2023-09-09', '2023-06-11', 120000.0000, 170000.0000),
-(13, 9, 'afasd', 'asdasdas', 'Krisha Maldonado', 2, '2023-06-07 00:00:00', '2023-09-22', '2023-06-12', 180000.0000, 230000.0000),
-(14, 11, 'Sample Task', 'Repaint sample project mural', 'Sarah Doe', 2, '2023-06-18 20:04:18', '2023-09-26', '2023-07-27', 2500000.0000, 350000.0000),
-(15, 11, 'add task test', 'add task test add task test add task test', 'Sample User', 3, '2023-06-18 20:04:51', '2023-09-30', '2023-07-16', 150000.0000, 200000.0000);
+(16, 16, 'Learn HTML', '123', 'Sarah Doe', 3, '2024-06-24 01:44:47', '2024-06-19', '2024-06-12', 100.0000, 100.0000),
+(17, 16, 'Learn Flask', '123', 'Winmari Manzano', 3, '2024-06-24 15:53:26', '2024-06-12', '2024-06-20', 2000.0000, 1500.0000),
+(18, 18, 'Learn HTML', '123', 'Winmari Manzano', 3, '2024-06-24 16:48:00', '2024-06-10', '2024-06-26', 100.0000, 100.0000);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `total_payment_sum`
+-- (See below for the actual view)
+--
+CREATE TABLE `total_payment_sum` (
+`total_amount` decimal(32,0)
+);
 
 -- --------------------------------------------------------
 
@@ -454,7 +546,7 @@ CREATE TABLE `users` (
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `profile` varchar(225) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `users`
@@ -481,7 +573,25 @@ CREATE TABLE `user_productivity` (
   `user_id` int(30) NOT NULL,
   `time_rendered` float NOT NULL,
   `date_created` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `current_budget`
+--
+DROP TABLE IF EXISTS `current_budget`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `current_budget`  AS SELECT (select sum(`payment_log`.`amount`) from `payment_log` where `payment_log`.`status` = 'Paid') - (select sum(`projects`.`overall_cost`) from `projects` where `projects`.`status` not in (0,4) and `projects`.`status` <= 9) AS `budget_remaining` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `total_payment_sum`
+--
+DROP TABLE IF EXISTS `total_payment_sum`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `total_payment_sum`  AS SELECT sum(`payment_log`.`amount`) AS `total_amount` FROM `payment_log` ;
 
 --
 -- Indexes for dumped tables
@@ -494,10 +604,27 @@ ALTER TABLE `finances`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `household`
+--
+ALTER TABLE `household`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_blk_lot` (`Blk`,`Lot`),
+  ADD KEY `fk_household_owner` (`household_owner`);
+
+--
+-- Indexes for table `household_members`
+--
+ALTER TABLE `household_members`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_household` (`household_id`),
+  ADD KEY `fk_member_id` (`member_id`);
+
+--
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_household` (`household_id`);
 
 --
 -- Indexes for table `payment_log`
@@ -585,25 +712,37 @@ ALTER TABLE `user_productivity`
 -- AUTO_INCREMENT for table `finances`
 --
 ALTER TABLE `finances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `household`
+--
+ALTER TABLE `household`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `household_members`
+--
+ALTER TABLE `household_members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `payment_log`
 --
 ALTER TABLE `payment_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `project_division`
@@ -657,7 +796,7 @@ ALTER TABLE `reserve`
 -- AUTO_INCREMENT for table `task_list`
 --
 ALTER TABLE `task_list`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -670,6 +809,29 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_productivity`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `household`
+--
+ALTER TABLE `household`
+  ADD CONSTRAINT `fk_household_owner` FOREIGN KEY (`household_owner`) REFERENCES `members` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `household_members`
+--
+ALTER TABLE `household_members`
+  ADD CONSTRAINT `fk_household` FOREIGN KEY (`household_id`) REFERENCES `household` (`id`),
+  ADD CONSTRAINT `fk_member_id` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`);
+
+--
+-- Constraints for table `members`
+--
+ALTER TABLE `members`
+  ADD CONSTRAINT `fk_user_household` FOREIGN KEY (`household_id`) REFERENCES `household` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

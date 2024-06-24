@@ -99,146 +99,7 @@ ini_set('display_errors',0);
 </style>
 
 <body class="toggle-sidebar">
-<aside id="sidebar" class="sidebar">
-
-<ul class="sidebar-nav" id="sidebar-nav">
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="index.php">
-      <i class="bi bi-grid"></i>
-      <span>Dashboard</span>
-    </a>
-  </li><!-- End Dashboard Nav -->
-
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-    <i class="fa-solid fa-people-group"></i><span>Census</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="masterlist.php">
-        <i class="fa-regular fa-rectangle-list"></i><span>Masterlist</span>
-        </a>
-      </li>
-      <li>
-        <a href="in_member.php">
-        <i class="fa-solid fa-address-book"></i><span>Active</span>
-        </a>
-      </li>
-      <li>
-        <a href="out_member.php">
-        <i class="fa-regular fa-address-book"></i><span>Inactive</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Components Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link" data-bs-target="#prj-nav" data-bs-toggle="collapse" href="#">
-    <i class="fa-solid fa-bars-progress"></i><span>Projects</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="prj-nav" class="nav-content " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="manage_project.php">
-        <i class="fa-solid fa-bars-progress"></i><span>Projects</span>
-        </a>
-      </li>
-      <li>
-        <a href="done_project.php">
-          <i class="bi bi-check2-square"></i><span>Done | Projects</span>
-        </a>
-      </li>
-      <li>
-        <a href="canc_project.php">
-          <i class="bi bi-x-square"></i><span>Cancelled | Projects</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Tables Nav -->
-
-
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-    <i class="fa-solid fa-coins"></i><span>Finance</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="mem_fee.php">
-          <i class="fa-solid fa-money-bills"></i><span>Membership Fee</span>
-        </a>
-      </li>
-      <li>
-        <a href="project_fee.php">
-          <i class="fa-solid fa-money-bills"></i><span>Project Contribution</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Tables Nav -->
-
-
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-    <i class="fa-solid fa-triangle-exclamation"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="reports.php">
-        <i class="fa-solid fa-circle-exclamation"></i><span>Reports</span>
-        </a>
-      </li>
-      <li>
-        <a href="res_report.php">
-        <i class="fa-regular fa-folder-open"></i><span>Resolved Reports</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Charts Nav -->
-
-
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#fac-nav" data-bs-toggle="collapse" href="#">
-    <i class="fa-solid fa-warehouse"></i><span>Reservation</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="fac-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="manage_fac.php">
-        <i class="bi bi-table"></i><span>Manage Reseravations</span>
-        </a>
-      </li>
-      <li>
-      <a href="app_res.php">
-      <i class="fa-solid fa-calendar-check"></i><span>Approved Reseravations</span>
-        </a>
-      </li>
-      <li>
-      <a href="dis_res.php">
-      <i class="fa-solid fa-calendar-xmark"></i><span>Disapproved Reseravations</span>
-        </a>
-      </li>
-
-      <li>
-      <a href="calendar.php">
-      <i class="fa-solid fa-calendar"></i><span>Calendar</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End Charts Nav -->
-
-
-  <li class="nav-item">
-    <a class="nav-link collapsed" href="logout.php">
-    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-      <span>Logout</span>
-    </a>
-  </li><!-- End Blank Page Nav -->
-
-</ul>
-
-</aside><!-- End Sidebar-->
+<?php include('sidebar.php')?>
     <?php include('headnav.php')?>
 
 
@@ -685,14 +546,7 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                                     <dd style="font-size: 20px;"><b>₱
                                                             <?php echo $total_cost ?></b></dd>
 
-                                                    <button
-                                                        style="width: 60%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-right: 12px;"
-                                                        type="button" data-bs-toggle="modal"
-                                                        data-bs-target="#prjhistory" class="btn">
-                                                        <i class="fa-solid fa-eye"></i> View Project
-                                                        Contribution</button>
-
-
+                                                    
 
                                                 </dl>
                                         </div>
@@ -706,7 +560,7 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                         <div class="col-sm-12">
                                         <div class="card card-outline card-primary">
                                             <div class="card-header">
-                                                <span><b>Purchase LIst:<br><br></b></span>
+                                                <span><b>Purchase List:<br><br></b></span>
 
                                          
 
@@ -724,7 +578,7 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                                         <tbody>
                                                             <?php
 							$i = 1;
-							$tasks = $conn->query("SELECT * FROM task_list where project_id = {$id} order by id asc");
+							$tasks = $conn->query("SELECT * FROM task_list where project_id = {$id} AND status = 3  order by id asc");
 							while($row=$tasks->fetch_assoc()):
 								$trans = get_html_translation_table(HTML_ENTITIES,ENT_QUOTES);
 								unset($trans["\""], $trans["<"], $trans[">"], $trans["<h2"]);

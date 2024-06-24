@@ -224,7 +224,7 @@ if(isset($_POST['add_mem'])){
 
                     <?php
   $type="Membership Fee";
-$result = mysqli_query($conn, "SELECT SUM(amount) AS value_sum FROM payment_log WHERE type='$type'");
+$result = mysqli_query($conn, "SELECT SUM(amount) AS value_sum FROM payment_log WHERE status='Paid'");
 $row = mysqli_fetch_assoc($result);
 $sum = $row['value_sum'];
       ?>

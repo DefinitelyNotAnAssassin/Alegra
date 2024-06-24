@@ -340,7 +340,8 @@ if(isset($_POST['add_mem'])){
                 <a href="view_member.php?status=view&&id=<?php echo $mem['id'] ?>" type="button" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
                 <a href="view_member.php?status=view&&id=<?php echo $mem['id'] ?>" type="button" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
                 <a href="?status=delete&&id=<?php echo $mem['id'] ?>" onclick="return confirm('Are you sure you want to delete this member? NOTE: This action cannot be undone.')"  type="button" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></a>
-                </td>
+                <a href="generate_certificate.php?id=<?php echo $mem['id'] ?>" type="button" class="btn btn-success"><i class="fa-solid fa-certificate"></i></a>
+              </td>
               </tr>
 
             <?php

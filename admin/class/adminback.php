@@ -360,10 +360,12 @@ class  adminback
         $lname = $data['lastname'];
         $gender = $data['gender'];
         $contact = $data['contact'];
+        $membership_plan = $data['membership_plan'];
         $blk = $data['blk'];
         $lot = $data['lot'];
         $username = $data['username'];
         $password = $data['password'];
+   
 
         $mem_id = $data['mem_id'];
 
@@ -376,7 +378,8 @@ class  adminback
         `block_number`='$blk',
         `lot_number`='$lot',
         `username`='$username',
-        `password`='$password'
+        `password`='$password',
+        `membership_plan` = '$membership_plan'
         WHERE `id`= $mem_id";
         
         if(mysqli_query($this->connection, $query)){
@@ -1367,7 +1370,7 @@ class  adminback
 
     function display_fin_id($id)
     {
-        $query = "SELECT * FROM `finances` WHERE `user_id`=$id";
+        $query = "SELECT * FROM `finances` WHERE `user_id`=$id  ORDER BY `status` ASC, `date` DESC";
 
         if(mysqli_query($this->connection, $query)){
             $result = mysqli_query($this->connection, $query);
@@ -1395,10 +1398,11 @@ class  adminback
         (`type`,
         `amount`,
         `date_paid`,
-        `user_id`)
+        `user_id`,
+        `status`)
         VALUES (
             '$type',
-            '$amount',NOW(),'$u_id')";
+            '$amount',NOW(),'$u_id', 'Paid')";
 
         if($stat == $paid){
 
@@ -1576,8 +1580,26 @@ function display_mem_con($id)
 function add_mem_fee($data){
 
 
-    $amount = $data['amount'];
+    $amount = $data['membershipFeeAmount'];
+    $amount = floatval($amount);
     $user_id = $data['mem_id'];
+
+
+    $member = "SELECT membership_plan FROM members WHERE id = $user_id";
+
+    $result = mysqli_query($this->connection, $member);
+    $row = mysqli_fetch_assoc($result);
+    $plan = $row['membership_plan'];
+
+    if ($plan == "Montly") {
+        $amount *= 1;
+    } elseif ($plan == "Quarterly") {
+        $amount *= 4;
+    } elseif ($plan == "Semi-Annually") {
+        $amount *= 6;
+    } elseif ($plan == "Annually") {
+        $amount *= 12;
+    }
 
 
     $query = "INSERT INTO `finances`
@@ -1603,6 +1625,10 @@ function add_mem_fee($data){
     }
         return $msg;
     }
+    else{
+        echo "Error: " . $query . "<br>" . mysqli_error($this->connection);
+    
+    }
 }
 
 function display_mem_fee()
@@ -1610,7 +1636,7 @@ function display_mem_fee()
 {
 
     $type="Membership Fee";
-    $query = "SELECT payment_log.*, members.first_name, members.last_name,members.id FROM `payment_log` LEFT JOIN members ON payment_log.user_id = members.id
+    $query = "SELECT payment_log.*, members.first_name, members.last_name,members.id FROM `payment_log` JOIN members ON payment_log.user_id = members.id AND payment_log.status = 'Paid'
     WHERE payment_log.type='$type' ORDER BY `date_paid` DESC";
 
     if(mysqli_query($this->connection, $query)){
@@ -1675,7 +1701,7 @@ function deletecon($id)
 
     function display_fin_memid($id)
     {
-        $query = "SELECT * FROM `finances` WHERE `user_id`=$id";
+        $query = "SELECT * FROM `finances` WHERE `user_id`=$id AND status = 0 ORDER BY `date`  DESC";
         if(mysqli_query($this->connection, $query)){
             $result = mysqli_query($this->connection, $query);
             return $result;

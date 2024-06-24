@@ -154,6 +154,12 @@ $project = $obj->display_project_fin();
                                         </div>
 
                                         <div class="row">
+                                            <div class="col-lg-3 col-md-4 label ">Membership Plan</div>
+                                            <div class="col-lg-9 col-md-8"><?php echo $mem['membership_plan']; ?></div>
+                                        </div>
+
+
+                                        <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Username</div>
                                             <div class="col-lg-9 col-md-8"><?php echo $mem['username'];?></div>
                                         </div>
@@ -262,6 +268,24 @@ $project = $obj->display_project_fin();
                                                 </div>
                                             </div>
 
+
+                                            <div class="row mb-3">
+                                                <label for="membership_plan" class="col-md-4 col-lg-3 col-form-label">Membership Plan <i
+                                                        class="fa-solid fa-hashtag"></i></label>
+                                                <div class="col-md-8 col-lg-9">
+                                                    <select name="membership_plan" type="text" class="form-control" id="Job"
+                                                        value="<?php echo $mem['membership_plan'];?>">
+
+                                                        <option value="Monthly" <?php echo ($mem['membership_plan'] == 'Monthly') ? 'selected' : ''; ?>>Monthly</option>
+                                                        <option value="Quarterly" <?php echo ($mem['membership_plan'] == 'Quarterly') ? 'selected' : ''; ?>>Quarterly</option>
+                                                        <option value="Semi-Annually" <?php echo ($mem['membership_plan'] == 'Semi-Annually') ? 'selected' : ''; ?>>Semi-Annually</option>
+                                                        <option value="Annually" <?php echo ($mem['membership_plan'] == 'Annually') ? 'selected' : ''; ?>>Annually</option>
+
+
+</select>
+                                                </div>
+                                            </div>
+
                                             <div class="row mb-3">
                                                 <label for="Country"
                                                     class="col-md-4 col-lg-3 col-form-label">Username</label>
@@ -303,12 +327,32 @@ $project = $obj->display_project_fin();
 
                                         <div class="row">
                                         <form action="" autocomplete="" class="sign-in-form" method="POST"
-                                            enctype="multipart/form-data" >
+                                            enctype="multipart/form-data" id = "membership_form">
                                             <input hidden name="mem_id" type="text" class="form-control" id="fullName"
                                                 value="<?php echo $mem['id'];?>">
+                                            <input type="hidden" name="membershipFeeAmount" id = "membershipFeeAmount">
+                                                
                                         <button
-                                                type="submit" data-bs-toggle="modal" name="mem_fee_add" class="btn" style="width: 20%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-left: 59%;">
+                                                type="submit" data-bs-toggle="modal"  onclick = "addMembershipFee(event)" name="mem_fee_add" class="btn" style="width: 20%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-left: 59%;">
                                                 <i class="fa-solid fa-square-plus"></i> Add Membership Fee</button>
+
+                                                <script>
+                                                function addMembershipFee(e){
+                                                    const membershipFee = document.getElementById('membershipFeeAmount');
+                                                
+                                                    if(membershipFee.value == ""){
+                                                        e.preventDefault();
+                                                        var amount = prompt("Enter membership fee to be paid", "1000");
+                                                        membershipFee.value = amount;
+                                                        e.target.click();
+                                                    }
+                                                    else{
+                                                        
+                                                    }
+                                            
+                                                 
+                                                }
+                                                </script>
 
                                         <button
                                                 style="width: 20%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px;"
@@ -328,7 +372,8 @@ $project = $obj->display_project_fin();
                                                                     <tr>
                                                                         <th hidden scope="col">ID</th>
                                                                         <th scope="col"></th>
-                                                                        <th scope="col">Last Payment</th>
+                                                                        
+                                                                        <th scope="col">Status</th>
                                                                         <th scope="col">Action</th>
 
                                                                     </tr>
@@ -345,7 +390,16 @@ $project = $obj->display_project_fin();
                                                                             <b> DUE:
                                                                                 <?php echo $ff['deadline'];?><b>
                                                                         </td>
-                                                                        <td><?php echo $ff['date'];?><b>
+                                                                        <td>
+                                                                       
+                                                                                    <?php if ($ff['status'] == 0) { ?>
+                                                                                        <span class="badge bg-warning p-2">Unpaid</span>
+                                                                                    <?php } elseif ($ff['status'] == 1) { ?>
+                                                                                        <span class="badge bg-success p-2">Paid</span>
+                                                                                    <?php } ?>
+                                                                             
+                                                                         
+                                                                        </td>
                                                                         </td>
 
                                                                         <td>
@@ -375,113 +429,7 @@ $project = $obj->display_project_fin();
 
 
 
-                                        <div class="row">
-
-                                            <button
-                                                style="width: 20%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-left:auto; margin-right: 12px;"
-                                                type="button" data-bs-toggle="modal" data-bs-target="#add" class="btn">
-                                                <i class="fa-solid fa-square-plus"></i> Add Project
-                                                Contribution</button>
-                                                <button
-                                                style="width: 20%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-right: 12px;"
-                                                type="button" data-bs-toggle="modal" data-bs-target="#prjhistory" class="btn">
-                                                <i class="fa-solid fa-eye"></i> View Payment History</button>
-
-                                            <div class="col-lg-12">
-
-
-
-                                                <div class="card">
-                                                    <div class="card-body" style="overflow-x:auto;">
-                                                        <!-- Table with stripped rows -->
-                                                        <div class="table-wrapper">
-                                                            <br>
-                                                            <table id="myTable" class="stripe" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th hidden scope="col">ID</th>
-                                                                        <th hidden scope="col">ID</th>
-                                                                        <th ></th>
-                                                                        <th>Status</th>
-                                                                        <th>Action</th>
-
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <?php while($prc = mysqli_fetch_assoc($projc)){ ?>
-                                                                    <tr>
-                                                                        <td hidden class="tbl-id"><?php echo $prc['id']; ?></td>
-                                                                        <td hidden class="tbl-name"><?php echo $prc['project']; ?></td>
-                                                                        <td style="max-width: 60%;"><b><?php echo $prc['project'];?></b><br>
-                                                                            <small>
-                                                                                ₱<?php echo $prc['amount'];?>
-                                                                            </small>
-                                                                            <br>
-
-                                                                            <hr>
-                                                                            BALANCE:
-                                                                            <?php
-                                                                    if($prc['balance'] == 0){
-                                                                     echo "No Balance";
-                                                                    }
-
-                                                                    else{
-                                                                      ?>
-                                                                            ₱<?php echo $prc['balance'];?>
-                                                                            <?php
-
-                                                                    }
-
-                                                                      ?>
-                                                                            <br>
-                                                                            <b> DUE:
-                                                                                <?php echo $prc['deadline'];?><b>
-                                                                        </td>
-
-                                                                    <td style="max-width: 20%;">
-                                                                        <?php
-                                                                    if($prc['status'] == 0){
-                                                                      echo "<span class='badge' style=' padding:10px; background-color: #f7ce2b;'>Unpaid</span>";
-                                                                    }
-
-                                                                    elseif($prc['status'] == 1){
-                                                                      ?>
-                                                                        <span class='badge'
-                                                                                style='padding:10px;background-color: rgb(51, 145, 87);'>Paid</span>
-
-                                                                        <?php
-
-                                                                    }
-
-                                                                    else{
-                                                                      echo "<span class='badge' style='padding:10px; background-color: rgb(23, 171, 212);'>Partially Paid</span>";
-                                                                    }
-
-                                                                      ?>
-                                                                      </td>
-                                                                        <td style="max-width: 20%;">
-                                                                            <button type="button" data-bs-toggle="modal"
-                                                                                data-bs-target="#finance"
-                                                                                class="btn btn-warning edit-fin-btn"><i
-                                                                                    class="fa-solid fa-pen-to-square"></i></button>
-                                                                            <a href="?status=delete&&id=<?php echo $prc['id'] ?>"
-                                                                                onclick="return confirm('Are you sure you want to delete this project contribution? NOTE: This action cannot be undone.')"
-                                                                                type="button" class="btn btn-danger"><i
-                                                                                    class="fa-solid fa-trash-can"></i></button></a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <?php } ?>
-                                                                </tbody>
-                                                            </table>
-                                                            <!-- End Table with stripped rows -->
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
+                                 
 
                                     </div><!-- End Bordered Tabs -->
 
@@ -519,7 +467,7 @@ $project = $obj->display_project_fin();
 
                                 <label class="col-sm-6 col-form-label">Amount Paid</label>
                                 <div class="col-md-8 col-lg-9">
-                                    <input name="amount" type="number" class="form-control" id="Address" value="1000">
+                                    <input name="amount" type="number"  class="form-control" id="Address" value = <?php echo 1000 ?>>
                                 </div>
 
                             </div>
@@ -539,72 +487,7 @@ $project = $obj->display_project_fin();
 
 
     <!-- MODAL -->
-    <div class="modal fade" id="add" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Project Contribution</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form class="row g-3 needs-validation" novalidate action="" autocomplete="" method="POST"
-                        enctype="multipart/form-data">
 
-                        <input hidden name="user_id" type="text" class="form-control" id="validationCustom02" value="<?php echo $mem_id;?>"
-                                required>
-
-                        <h5>Project Information: </h5>
-
-                        <div class="col-md-4">
-                            <label for="validationCustom04" class="form-label">Project</label>
-                            <select name="project" class="form-control" required>
-                                <option value="" selected disabled>Select a Project</option>
-
-                                <?php while($prj = mysqli_fetch_assoc($project)){ ?>
-                                <option value="<?php echo $prj['id'] ?>"><?php echo $prj['project'] ?>
-                                </option>
-
-                                <?php }?>
-                            </select>
-                            <div class="invalid-feedback">
-                                Please select a project.
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="validationCustom02" class="form-label">Amount ₱</label>
-                            <input name="amount" type="text" class="form-control" id="validationCustom02" value=""
-                                required>
-                            <div class="invalid-feedback">
-                                Please provide valid amount.
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="validationCustom02" class="form-label">Due Date</label>
-                            <input name="date" type="date" class="form-control" id="validationCustom02" value=""
-                                required>
-                            <div class="invalid-feedback">
-                                Please provide valid date.
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                        </div>
-
-                        <div class="col-12">
-
-                        </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button style="color:#e9e5d6; background-color: #008000; border: none;" name="add_proj"
-                        class="btn btn-primary" type="submit"><i class="fa-solid fa-plus"></i> Add Contribution</button>
-                </div>
-            </div>
-        </div>
-    </div>
     </form>
 
 

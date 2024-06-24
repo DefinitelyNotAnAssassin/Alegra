@@ -371,16 +371,18 @@ button {
                                         ₱<?php echo $ff['amount'];?>
                                     </small>
                                     <br>
-                                    <b> DUE:
-                                        <?php echo $ff['deadline'];?><b>
+                                    <b> Date Issued:
+                                        <?php echo $ff['date'];?><b>
                                 </td>
                                 <td>
                                     <?php
                                     if($ff['status'] == 0){
-                                        echo "Unpaid";
-                                    } elseif($ff['status'] == 1){
-                                        echo "Paid";
+                                        echo "<span class='badge bg-warning'>Unpaid</span>";
+                                        
+                                    }else{
+                                        echo "<span class='badge bg-success'>Paid</span>";
                                     }
+                             
                                 }
                                     ?>
                                 </td>
@@ -403,97 +405,11 @@ button {
 
 
 
-<div class="row">
-
-        <button
-        style="width: 20%;color:#e9e5d6; background-color: #008000; margin-bottom: 10px; margin-left:auto; margin-right: 12px;"
-        type="button" data-bs-toggle="modal" data-bs-target="#prjhistory" class="btn">
-        <i class="fa-solid fa-eye"></i> View Payment History</button>
-
-    <div class="col-lg-12">
 
 
 
-        <div class="card">
-            <div class="card-body" style="overflow-x:auto;">
-                <!-- Table with stripped rows -->
-                <div class="table-wrapper">
-                    <br>
-                    <table id="myTable" class="stripe" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th hidden scope="col">ID</th>
-                                <th hidden scope="col">ID</th>
-                                <th style="width:100%"></th>
-                                <th>Status</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while($prc = mysqli_fetch_assoc($projc)){ ?>
-                            <tr>
-                                <td hidden class="tbl-id"><?php echo $prc['id']; ?></td>
-                                <td hidden class="tbl-name"><?php echo $prc['project']; ?></td>
-                                <td style="width:100%"><b><?php echo $prc['project'];?></b><br>
-                                    <small>
-                                        ₱<?php echo $prc['amount'];?>
-                                    </small>
-                                    <br>
 
-                                    <hr>
-                                    BALANCE:
-                                    <?php
-                            if($prc['balance'] == 0){
-                             echo "No Balance";
-                            }
-
-                            else{
-                              ?>
-                                    ₱<?php echo $prc['balance'];?>
-                                    <?php
-
-                            }
-
-                              ?>
-                                    <br>
-                                    <b> DUE:
-                                        <?php echo $prc['deadline'];?><b>
-                                </td>
-
-                            <td style="max-width: 20%;">
-                                <?php
-                            if($prc['status'] == 0){
-                              echo "<span class='badge' style=' padding:10px; background-color: #f7ce2b;'>Unpaid</span>";
-                            }
-
-                            elseif($prc['status'] == 1){
-                              ?>
-                                <span class='badge'
-                                        style='padding:10px;background-color: rgb(51, 145, 87);'>Paid</span>
-
-                                <?php
-
-                            }
-
-                            else{
-                              echo "<span class='badge' style='padding:10px; background-color: rgb(23, 171, 212);'>Partially Paid</span>";
-                            }
-
-                              ?>
-                              </td>
-                            </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                    <!-- End Table with stripped rows -->
-
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</div>
 
 </div><!-- End Bordered Tabs -->
 </div>

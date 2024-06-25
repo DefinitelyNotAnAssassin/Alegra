@@ -2,6 +2,8 @@
 <?php
 require_once '../vendor/autoload.php';
 
+include('class/db.php');
+
 use PhpOffice\PhpWord\Settings;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -18,9 +20,17 @@ $templatePath = 'certificates/base/Homeowners-Association-Certification.docx';
 $templateProcessor = new TemplateProcessor($templatePath);
 
 // Replace the placeholder [Full Name] with the actual name
-$fullName = "John Doe"; // Example name
-$address = "123 Example St."; // Example address
-$hoaName = "Example Homeowners Association"; // Example HOA name
+
+
+$memberId = $_GET['id']; 
+
+$sql = "SELECT * FROM members WHERE id = '$memberId'";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+
+
+$fullName = $row['first_name'] . ' ' . $row['last_name'];
+$address = "Blk " .  $row['block_number'] . ' Lot ' . $row['lot_number'];
 
 // Note: No comma or other characters outside the brackets in the placeholder
 
@@ -41,7 +51,8 @@ $xmlWriter = IOFactory::createWriter($phpWord, 'PDF');
 $xmlWriter->save($tempPdfPath);
 
 // Output the generated PDF to browser for download
-header("Content-Disposition: attachment; filename=certificate.pdf");
+$filename = 'Certificate of Residence - ' . $fullName . '.pdf';
+header("Content-Disposition: attachment; filename=$filename");
 header("Content-Type: application/pdf");
 readfile($tempPdfPath);
 

@@ -440,6 +440,7 @@ class  adminback
         $gender = $data['gender'];
         $blk = $data['blk'];
         $lot = $data['lot'];
+        $residence_type = $data['residence_type'];
         $username = $data['username'];
         $password = $data['password'];
 
@@ -457,6 +458,7 @@ class  adminback
         $query = "INSERT INTO `members`
         ( `block_number`,
         `lot_number`,
+        `residence_type`,
         `first_name`,
         `mid_name`,
         `last_name`,
@@ -469,6 +471,7 @@ class  adminback
         VALUES (
         '$blk',
         '$lot',
+        '$residence_type',
         '$fname',
         '$mname',
         '$lname',
@@ -544,11 +547,14 @@ class  adminback
         $household_id = mysqli_real_escape_string($this->connection, $data['household_id']);
         // Constructing the SQL query
 
-        $is_political_family = mysqli_real_escape_string($this->connection, $data['is_political_family']);
-        $is_pwd = mysqli_real_escape_string($this->connection, $data['is_pwd']);
-        $is_ethnic = mysqli_real_escape_string($this->connection, $data['is_ethnic']);
+        $is_political_family = isset($data['is_political_family']) ? 1 : 0;
+        $is_pwd = isset($data['is_pwd']) ? 1 : 0;
+        $is_ethnic = isset($data['is_ethnic']) ? 1 : 0;
 
-
+        // Now, sanitize these values before using them in a database query
+        $is_political_family = mysqli_real_escape_string($this->connection, $is_political_family);
+        $is_pwd = mysqli_real_escape_string($this->connection, $is_pwd);
+        $is_ethnic = mysqli_real_escape_string($this->connection, $is_ethnic);
 
         // check if member already exists in household
 
@@ -782,6 +788,28 @@ class  adminback
         $estimated_cost = $data['estimated_cost'];
         $actual_cost = $data['actual_cost'];
 
+
+        // Verify if the actual_cost is greater than the remaining_budget 
+
+        $sql = "SELECT overall_cost FROM projects WHERE id = $prj_id";
+        $result = mysqli_query($this->connection, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $overall_cost = $row['overall_cost'];
+
+        $sql = "SELECT SUM(actual_cost) as total_cost FROM task_list WHERE project_id = $prj_id";
+        $result = mysqli_query($this->connection, $sql);
+        $row = mysqli_fetch_assoc($result);
+        $total_cost = $row['total_cost'];
+
+
+        if ($total_cost + $actual_cost > $overall_cost) {
+            $msg = "<div style='margin-left: 62%; width: 30%;' class='alert alert-danger alert-dismissible fade show' role='alert'>
+            <i class='bi bi-exclamation-triangle me-1'></i> Actual cost exceeds the overall cost / remaining budget of the project.
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+          </div>";
+            return $msg;
+        }
+        
 
         $query = "INSERT INTO `task_list`
         (`project_id`,

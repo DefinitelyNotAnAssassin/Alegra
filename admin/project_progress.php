@@ -61,6 +61,8 @@ if(isset($_GET['status'])){
 if(isset($_POST['add_task'])){
 	$msg = $obj->add_task($_POST);
 
+    echo "<script>alert($msg)</script>";
+
   }
 
   
@@ -696,6 +698,7 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                                             <th>Task</th>
                                                             <th>Assigned to</th>
                                                             <th>Description</th>
+                                                            <th>Amount</th>
                                                             <th>Deadline</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
@@ -721,12 +724,15 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                                                     </p>
                                                                 </td>
                                                                 <td class="">
+                                                                    <b><?php echo number_format((float)$row['actual_cost'], 2) ?></b>
+                                                                </td>
+                                                                <td class="">
                                                                     <b><?php echo ucwords($row['deadline']) ?></b>
                                                                 </td>
                                                                 <td>
                                                                     <?php
                                                                     if($row['status'] == 1){
-                                                                      echo "<span class='badge' style='background-color: rgb(235, 235, 23);'>Pending</span>";
+                                                                      echo "<span class='badge bg-primary'>Pending</span>";
                                                                     }elseif($row['status'] == 2){
                                                                       echo "<span class='badge' style='background-color: rgb(23, 171, 212);'>On-Progress</span>";
                                                                     }elseif($row['status'] == 3){

@@ -90,7 +90,11 @@
             <i class="fa-solid fa-money-bills"></i><span>Membership Fee</span>
           </a>
         </li>
-       
+        <li>
+          <a href="pending_projects.php">
+            <i class="fa-solid fa-money-bills"></i><span>Pending Projects</span>
+          </a>
+        </li>
       </ul>
     </li><!-- End Tables Nav -->
 

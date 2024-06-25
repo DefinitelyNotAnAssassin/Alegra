@@ -145,7 +145,14 @@ if(isset($_POST['add_mem'])){
 
   <div class="col-md-4">
     <label for="validationCustom02" class="form-label">Blk <i class="fa-solid fa-hashtag"></i></label>
-    <input name="blk" type="number" class="form-control" id="validationCustom02" value="" required>
+    <select name="blk" class="form-select" id="validationCustom02" required>
+      <option selected disabled value="">Choose Block Number</option>
+      <?php
+      for ($i = 1; $i <= 10; $i++) {
+        echo "<option value=\"$i\">$i</option>";
+      }
+      ?>
+    </select>
     <div class="invalid-feedback">
     Please provide valid block number.
     </div>
@@ -154,16 +161,31 @@ if(isset($_POST['add_mem'])){
 
   <div class="col-md-4">
     <label for="validationCustom02" class="form-label">Lot <i class="fa-solid fa-hashtag"></i></label>
-    <input name="lot" type="number" class="form-control" id="validationCustom02" value="" required>
-    <div class="invalid-feedback">
+    <select name="lot" class="form-select" id="validationCustom02" required>
+      <option selected disabled value="">Choose Lot Number</option>
+      <?php
+      for ($i = 1; $i <= 10; $i++) {
+      echo "<option value=\"$i\">$i</option>";
+      }
+      ?>
+    </select><div class="invalid-feedback">
     Please provide valid lot number.
     </div>
   </div>
 
 
   <div class="col-md-4">
+    <label for="validationCustom02" class="form-label">Residence Type <i class="fa-solid fa-hashtag"></i></label>
+    <select name="residence_type" class="form-select" id="validationCustom02" required>
+      <option selected disabled value="">Choose Lot Number</option>
+      <option value="Homeowner">Homeowner</option>
+      <option value="Resident">Resident</option>
+      <option value="Renter">Renter</option>
+      <option value="Other">Other</option>
+    </select><div class="invalid-feedback">
+    Please provide valid lot number.
+    </div>
   </div>
-
 
   <h5>Login credentials: </h5>
   <div class="col-md-4">

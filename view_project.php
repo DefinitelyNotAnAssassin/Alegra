@@ -294,6 +294,7 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                                             <th>Task</th>
                                                             <th>Assigned to</th>
                                                             <th style="width: 30%;">Description</th>
+                                                            <th>Cost</th>
                                                             <th>Deadline</th>
                                                             <th>Status</th>
                                                             <th>View</th>
@@ -317,6 +318,9 @@ text-transform: uppercase; font-weight: bold;'> Done </p>";
                                                                 <td class="">
                                                                     <p class="truncate"><?php echo strip_tags($desc) ?>
                                                                     </p>
+                                                                </td>
+                                                                <td class="">
+                                                                    <b><?php echo number_format($row['actual_cost']) ?></b>
                                                                 </td>
                                                                 <td class="">
                                                                     <b><?php echo ucwords($row['deadline']) ?></b>

@@ -258,7 +258,7 @@ if(isset($_POST['add_household_member'])){
 
 
 <div class="modal fade"  id="householdDetails" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered modal-lg" >
+<div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 90%;">
                   <div class="modal-content" >
                     <div class="modal-header">
                       <h5 class="modal-title">Household Details</h5>
@@ -387,7 +387,7 @@ $households = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </thead>
       <tbody>
         <?php foreach ($households as $household): 
-          $query = "SELECT m.first_name, m.last_name, hm.relationship_to_head, hm.occupation, hm.social_security_number, hm.passport_number, hm.other_id_description, hm.other_id_number, hm.social_welfare_programs, hm.is_pwd, hm.is_political_family, hm.is_ethnic
+          $query = "SELECT hm.id, m.first_name, m.last_name, hm.relationship_to_head, hm.occupation, hm.social_security_number, hm.passport_number, hm.other_id_description, hm.other_id_number, hm.social_welfare_programs, hm.is_pwd, hm.is_political_family, hm.is_ethnic
                 FROM household_members hm
                 JOIN members m ON hm.member_id = m.id
                 WHERE hm.household_id = " . $household['id'];
@@ -489,6 +489,7 @@ const changeMembers = (householdMembers) => {
         <td>${member.is_pwd}</td>
         <td>${member.is_political_family}</td>
         <td>${member.is_ethnic}</td>
+        <td><a href="/alegra/admin/edit_household_member.php?id=${member.id}"><i class="fa-solid fa-edit"></i></a></td>
       </tr>
     `;
   });
@@ -509,6 +510,7 @@ const changeMembers = (householdMembers) => {
           <th scope = 'col'>Is PWD</th>
           <th scope = 'col'>Is Political Family</th>
           <th scope = 'col'>Is Ethnic</th>
+          <th scope = 'col'>Action</th>
         </tr>
       </thead>
       <tbody>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2024 at 11:09 AM
+-- Generation Time: Jun 26, 2024 at 07:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -134,7 +134,11 @@ INSERT INTO `household_members` (`id`, `relationship_to_head`, `occupation`, `na
 (8, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 19:58:52', '2024-06-20 19:58:52', 15, 4, 0, 0, 0),
 (9, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:02:01', '2024-06-20 20:02:01', 15, 19, 0, 0, 0),
 (10, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:03:31', '2024-06-20 20:03:31', 14, 2, 0, 0, 0),
-(14, '123', '123', '123', '123', '123', '123', '123', '123', '2024-06-23 18:31:26', '2024-06-23 18:31:26', 14, 4, 0, 0, 0);
+(14, '123', '123', '123', '123', '123', '123', '123', '123', '2024-06-23 18:31:26', '2024-06-23 18:31:26', 14, 4, 0, 0, 0),
+(15, '123', '1', '1', '', '', '', '', '', '2024-06-25 17:29:53', '2024-06-25 17:29:53', 14, 20, 0, 0, 0),
+(16, '', '', '', '', '', '', '', '', '2024-06-25 17:30:18', '2024-06-25 17:30:18', 14, 19, 0, 0, 0),
+(17, '', '', '', '', '', '12312312', '', '', '2024-06-25 17:33:03', '2024-06-25 18:22:37', 15, 20, 0, 1, 1),
+(18, '', '', '', '', '', '', '', '', '2024-06-25 17:34:09', '2024-06-25 17:34:09', 16, 20, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -157,19 +161,20 @@ CREATE TABLE `members` (
   `status` int(11) NOT NULL DEFAULT 1,
   `date_added` date DEFAULT current_timestamp(),
   `household_id` int(11) DEFAULT NULL,
-  `membership_plan` varchar(255) DEFAULT 'Monthly'
+  `membership_plan` varchar(255) DEFAULT 'Monthly',
+  `residence_type` varchar(255) DEFAULT 'Homeowner'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `block_number`, `lot_number`, `first_name`, `mid_name`, `last_name`, `gender`, `contact`, `username`, `password`, `user_image`, `status`, `date_added`, `household_id`, `membership_plan`) VALUES
-(2, 8, 17, 'Krisha', '', 'Maldonado', 'Female', '09121234567', 'kris', 'kris', 'dp2.png', 1, '2023-06-18', 9, 'Annually'),
-(3, 8, 16, 'Annalyza', 'Sarah', 'Maldonado', 'Rather Not Say', '09123456789', 'sample_user', 'sample_user', 'dp1.png', 1, '2023-06-18', 13, 'Monthly'),
-(4, 9, 2, 'Princess', 'Sarah', 'Does', 'Female', '', 'sarah', 'sarah', '68754d3618d624a051c3f38dc5a732cd.jpg', 1, '2023-06-18', 17, 'Monthly'),
-(19, 9, 11, 'Sarah', 'Doe', 'Doe', 'Female', '09123456789', 'sarah', 'alegraheights', 'messages-2.jpg', 1, '2023-06-18', 15, 'Monthly'),
-(20, 1, 1, 'Winmari', '', 'Manzano', 'Male', '1', '1', '12121', '448262227_10232385425642472_8136769368041204756_n.jpg', 1, '2024-06-24', NULL, 'Semi-Annually');
+INSERT INTO `members` (`id`, `block_number`, `lot_number`, `first_name`, `mid_name`, `last_name`, `gender`, `contact`, `username`, `password`, `user_image`, `status`, `date_added`, `household_id`, `membership_plan`, `residence_type`) VALUES
+(2, 8, 17, 'Krisha', '', 'Maldonado', 'Female', '09121234567', 'kris', 'kris', 'dp2.png', 1, '2023-06-18', 9, 'Annually', 'Homeowner'),
+(3, 8, 16, 'Annalyza', 'Sarah', 'Maldonado', 'Rather Not Say', '09123456789', 'sample_user', 'sample_user', 'dp1.png', 1, '2023-06-18', 13, 'Monthly', 'Homeowner'),
+(4, 9, 2, 'Princess', 'Sarah', 'Does', 'Female', '', 'sarah', 'sarah', '68754d3618d624a051c3f38dc5a732cd.jpg', 1, '2023-06-18', 17, 'Monthly', 'Homeowner'),
+(19, 9, 11, 'Sarah', 'Doe', 'Doe', 'Female', '09123456789', 'sarah', 'alegraheights', 'messages-2.jpg', 1, '2023-06-18', 15, 'Monthly', 'Homeowner'),
+(20, 1, 1, 'Winmari', '', 'Manzano', 'Male', '1', '1', '12121', '448262227_10232385425642472_8136769368041204756_n.jpg', 1, '2024-06-24', NULL, 'Semi-Annually', 'Homeowner');
 
 -- --------------------------------------------------------
 
@@ -240,7 +245,8 @@ CREATE TABLE `projects` (
 INSERT INTO `projects` (`id`, `project`, `description`, `location`, `overall_cost`, `start_date`, `deadline`, `site_pic`, `site_pic1`, `site_pic2`, `tid`, `proposed_project`, `date_added`, `status`) VALUES
 (16, 'Lorem Ipsum', 'Lorem ', 'Test', '5000', '2024-05-28', '2024-07-02', '1798772931-cb53d0383b3052977eb1e0512a3585af16da63d0adf88568483f03b29ee373b4-d.webp', '1798772931-cb53d0383b3052977eb1e0512a3585af16da63d0adf88568483f03b29ee373b4-d.webp', '1798772931-cb53d0383b3052977eb1e0512a3585af16da63d0adf88568483f03b29ee373b4-d.webp', 0, 0, '2024-06-23', 5),
 (17, '', '', '', '0', '0000-00-00', '0000-00-00', '', '', '', 0, 0, '0000-00-00', 10),
-(18, '1', '1', '1', '11111', '2024-06-19', '2024-07-05', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', 0, 0, '2024-06-24', 1);
+(18, '1', '1 ', '1', '11111', '2024-06-19', '2024-07-05', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', 0, 0, '2024-06-24', 5),
+(19, '123', '123123123', '1312312', '12313', '2024-06-27', '2024-06-28', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', '448262227_10232385425642472_8136769368041204756_n.jpg', 0, 0, '2024-06-26', 1);
 
 -- --------------------------------------------------------
 
@@ -520,7 +526,9 @@ CREATE TABLE `task_list` (
 INSERT INTO `task_list` (`id`, `project_id`, `task`, `description`, `staff`, `status`, `date_created`, `deadline`, `start_date`, `estimated_cost`, `actual_cost`) VALUES
 (16, 16, 'Learn HTML', '123', 'Sarah Doe', 3, '2024-06-24 01:44:47', '2024-06-19', '2024-06-12', 100.0000, 100.0000),
 (17, 16, 'Learn Flask', '123', 'Winmari Manzano', 3, '2024-06-24 15:53:26', '2024-06-12', '2024-06-20', 2000.0000, 1500.0000),
-(18, 18, 'Learn HTML', '123', 'Winmari Manzano', 3, '2024-06-24 16:48:00', '2024-06-10', '2024-06-26', 100.0000, 100.0000);
+(18, 18, 'Learn HTML', '123', 'Winmari Manzano', 3, '2024-06-24 16:48:00', '2024-06-10', '2024-06-26', 100.0000, 100.0000),
+(23, 19, 'Learn HTML', '123', 'Princess Does', 1, '2024-06-26 01:10:05', '2024-06-26', '2024-06-26', 123.0000, 5000.0000),
+(24, 19, 'Learn HTML', '123', 'Princess Does', 1, '2024-06-26 01:10:31', '2024-06-26', '2024-06-26', 123.0000, 123.0000);
 
 -- --------------------------------------------------------
 
@@ -724,7 +732,7 @@ ALTER TABLE `household`
 -- AUTO_INCREMENT for table `household_members`
 --
 ALTER TABLE `household_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `members`
@@ -742,7 +750,7 @@ ALTER TABLE `payment_log`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `project_division`
@@ -796,7 +804,7 @@ ALTER TABLE `reserve`
 -- AUTO_INCREMENT for table `task_list`
 --
 ALTER TABLE `task_list`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`

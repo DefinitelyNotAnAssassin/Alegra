@@ -21,6 +21,12 @@ $households = $obj->display_households();
 
 
 
+if (isset($_SESSION['error'])) {
+  echo "<script>alert('".$_SESSION['error']."')</script>";
+  unset($_SESSION['error']);
+}
+
+
 if(isset($_GET['status'])){
     $id = $_GET['id'];
     if($_GET['status']=="delete"){
@@ -49,7 +55,7 @@ if(isset($_POST['add_household_member'])){
 
 <!DOCTYPE html>
 <html lang="en">
-
+<link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
 <?php include('header.php')?>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -210,21 +216,119 @@ if(isset($_POST['add_household_member'])){
       <label for="passport_number">Passport Number:</label>
       <input type="text" class="form-control" id="passport_number" placeholder="(Optional)" name="passport_number">
     </div>
+
+
+    <div class=" col-md-4" ></div>
+
+    <div class=" col-md-8" ><h1 >Additional Information</h1></div>
+
+
+
+    <div class=" col-md-4" ></div>
+
+
     <div class="form-group col-md-4">
-      <label>Additional Information:</label>
+
+    <div class="form-group col-md-8">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="is_ethnic" name="is_ethnic">
-        <label class="form-check-label" for="is_ethnic">Is Ethnic</label>
+        <input class="form-check-input" type="checkbox" id="is_senior" name="is_senior">
+        <label class="form-check-label" for="is_senior">Is Senior Citizen</label>
       </div>
+    </div>
+      
+    </div>
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="is_ethnic" name="is_ethnic">
+          <label class="form-check-label" for="is_ethnic">Is Ethnic</label>
+      </div>
+    </div>
+
+
+      
+    <div class="form-group col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="is_pwd" name="is_pwd">
         <label class="form-check-label" for="is_pwd">Is PWD</label>
       </div>
+    </div>
+
+    <div class="form-group col-md-4">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="is_political_family" name="is_political_family">
         <label class="form-check-label" for="is_political_family">Is Political Family</label>
       </div>
+
     </div>
+
+
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_sss" name="is_sss">
+        <label class="form-check-label" for="is_sss">Is SSS</label>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_gsis" name="is_gsis">
+        <label class="form-check-label" for="is_gsis">Is GSIS</label>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_4ps" name="is_4ps">
+        <label class="form-check-label" for="is_4ps">Is 4Ps</label>
+      </div>
+    </div>
+
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_military" name="is_military">
+        <label class="form-check-label" for="is_military">Is Military</label>
+      </div>
+    </div>
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_ayuda" name="is_ayuda">
+        <label class="form-check-label" for="is_ayuda">Is Ayuda For Drivers Recipient</label>
+      </div>
+    </div>
+
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_sap" name="is_sap">
+        <label class="form-check-label" for="is_sap">Is SAP Recipient</label>
+      </div>
+    </div>
+
+
+
+    <div class="form-group col-md-4">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="is_sap_qc" name="is_sap_qc">
+        <label class="form-check-label" for="is_sap_qc">Is SAP QC Recipient</label>
+      </div>
+    </div>
+
+
+    <div class="form-group col-md-4">
+    
+    </div>
+
+
+
+    
+
+    
+
+
     
     <div class="form-group col-md-4">
         <label for="other_id_number">Other ID Number:</label>
@@ -279,9 +383,42 @@ if(isset($_POST['add_household_member'])){
 <div class="pagetitle">
   <h1>HOUSEHOLD MASTERLIST</h1>
   <br>
+  
   <button style="color:#e9e5d6; background-color: #008000;" type="button" data-bs-toggle="modal" data-bs-target="#verticalycentered" class="btn"><i class="fa-solid fa-user-plus"></i> Add Household</button>
   <br>
   <button style="color:#e9e5d6; background-color: #008000; margin-top: 10px;" type="button" data-bs-toggle="modal" data-bs-target="#addHouseholdMember" class="btn"><i class="fa-solid fa-user-plus"></i> Add Household Member</button>
+  <br>
+  <button id = "" data-dropdown-toggle="dropdown" class="mt-8 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> Generate 
+                </button>   
+  <div id="dropdown" class="z-10 text-center hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+      <li>
+        <a href="<?php echo "generate/generate_pwd_list.php?id="?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PWD List</a>
+      </li>
+      <li>
+        <a href="<?php echo "generate/generate_senior_list.php?id="?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Senior Citizen List</a>
+      </li>
+      <li>
+        <a href="<?php echo "generate/generate_4ps_list.php?id=" ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">4ps List</a>
+      </li>
+      <li>
+        <a href="<?php echo "generate/generate_government_list.php?id=" ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">SSS/GSIS List</a>
+      </li>
+
+      <li>
+        <a href="<?php echo "generate/generate_acquired_lot.php?id=" ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Acquired Lot List</a>
+      </li>
+
+
+      <li>
+        <a href="<?php echo "generate/generate_awarded_lot.php?id=" ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Awarded Lot List</a>
+      </li>
+
+      <li>
+        <a href="<?php echo "generate/generate_not_awarded_lot.php?id=" ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Not Yet Awarded List</a>
+      </li>
+    </ul>
+</div>
 </div><!-- End Page Title -->
 <br>
 <section class="section dashboard">
@@ -407,6 +544,33 @@ $households = mysqli_fetch_all($result, MYSQLI_ASSOC);
           <td><?= htmlspecialchars($household['first_name']) ?></td>
           <td><?= htmlspecialchars($household['last_name']) ?></td>
           <td><button class = "btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#householdDetails"  onclick="changeMembers('<?php echo htmlspecialchars(json_encode($members), ENT_QUOTES, 'UTF-8'); ?>')">View Members</button></td>
+          <td>
+                
+    <button id = "<?php echo $household['id'] ?>" data-dropdown-toggle="<?php echo "dropdown-" . $household['id'] ?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"> Generate <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+    </svg>
+    </button>
+
+<!-- Dropdown menu -->
+<div id="<?php echo "dropdown-" . $household['id'] ?>" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+      <li>
+        <a href="<?php echo "generate/generate_pwd_list.php?id=" . $household['id'] ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PWD List</a>
+      </li>
+      <li>
+        <a href="<?php echo "generate/generate_senior_list.php?id=" . $household['id'] ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Senior Citizen List</a>
+      </li>
+      <li>
+        <a href="<?php echo "generate/generate_4ps_list.php?id=" . $household['id'] ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">4ps List</a>
+      </li>
+      <li>
+        <a href="<?php echo "generate/generate_government_list.php?id=" . $household['id'] ?>" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">SSS/GSIS List</a>
+      </li>
+    </ul>
+</div>
+
+          </td>
+       
         </tr>
         <?php endforeach; ?>
       </tbody>
@@ -536,6 +700,8 @@ const changeMembers = (householdMembers) => {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 
 </body>
 

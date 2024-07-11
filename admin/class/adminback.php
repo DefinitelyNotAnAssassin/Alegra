@@ -443,6 +443,8 @@ class  adminback
         $residence_type = $data['residence_type'];
         $username = $data['username'];
         $password = $data['password'];
+        $lot_type = !empty($data['lot_type']) ? $data['lot_type'] : "";
+        $award_status = !empty($data['award_status']) ? $data['award_status'] : "";
 
         $membership_plan = $data['membership_plan'];
 
@@ -467,7 +469,9 @@ class  adminback
         `username`,
         `password`,
         `user_image`,
-        `membership_plan`)
+        `membership_plan`,
+        `lot_type`,
+        `award_type`)
         VALUES (
         '$blk',
         '$lot',
@@ -480,7 +484,9 @@ class  adminback
         '$username',
         '$password',
         '$pdt_img_name1',
-        '$membership_plan'
+        '$membership_plan',
+        '$lot_type',
+        '$award_status'
             )";
 
             if (mysqli_query($this->connection, $query)) {
@@ -547,6 +553,7 @@ class  adminback
         $household_id = mysqli_real_escape_string($this->connection, $data['household_id']);
         // Constructing the SQL query
 
+        $is_senior = isset($data['is_senior']) ? 1 : 0;
         $is_political_family = isset($data['is_political_family']) ? 1 : 0;
         $is_pwd = isset($data['is_pwd']) ? 1 : 0;
         $is_ethnic = isset($data['is_ethnic']) ? 1 : 0;
@@ -555,7 +562,13 @@ class  adminback
         $is_political_family = mysqli_real_escape_string($this->connection, $is_political_family);
         $is_pwd = mysqli_real_escape_string($this->connection, $is_pwd);
         $is_ethnic = mysqli_real_escape_string($this->connection, $is_ethnic);
-
+        $is_military = isset($data['is_military']) ? 1 : 0;
+        $is_ayuda = isset($data['is_ayuda']) ? 1 : 0;
+        $is_4ps = isset($data['is_4ps']) ? 1 : 0;
+        $is_sss = isset($data['is_sss']) ? 1 : 0;
+        $is_gsis = isset($data['is_gsis']) ? 1 : 0;
+        $is_sap = isset($data['is_sap']) ? 1 : 0;
+        $is_sap_qc = isset($data['is_sap_qc']) ? 1 : 0;
         // check if member already exists in household
 
         $query = "SELECT * FROM household_members WHERE member_id = $id AND household_id = $household_id";
@@ -572,11 +585,11 @@ class  adminback
         $query2 = "INSERT INTO household_members (
                     household_id, member_id, 
                     relationship_to_head, occupation, national_id, social_security_number, 
-                    passport_number, other_id_description, other_id_number, social_welfare_programs, is_ethnic, is_pwd, is_political_family
+                    passport_number, other_id_description, other_id_number, social_welfare_programs, is_ethnic, is_pwd, is_political_family, is_military, is_ayuda, is_4ps, is_sss, is_gsis, is_sap, is_sap_qc, is_senior
                 ) VALUES (
                     '$household_id', '$id', 
                     '$relationship_to_head', '$occupation', '$national_id', '$social_security_number', 
-                    '$passport_number', '$other_id_description', '$other_id_number', '$social_welfare_programs', '$is_ethnic', '$is_pwd', '$is_political_family'
+                    '$passport_number', '$other_id_description', '$other_id_number', '$social_welfare_programs', '$is_ethnic', '$is_pwd', '$is_political_family', '$is_military', '$is_ayuda', '$is_4ps', '$is_sss', '$is_gsis', '$is_sap', '$is_sap_qc', '$is_senior'
                 )";
     
         // Executing the query

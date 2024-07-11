@@ -173,19 +173,39 @@ if(isset($_POST['add_mem'])){
     </div>
   </div>
 
-
   <div class="col-md-4">
-    <label for="validationCustom02" class="form-label">Residence Type <i class="fa-solid fa-hashtag"></i></label>
-    <select name="residence_type" class="form-select" id="validationCustom02" required>
-      <option selected disabled value="">Choose Lot Number</option>
+    <label for="residenceTypeSelect" class="form-label">Residence Type <i class="fa-solid fa-hashtag"></i></label>
+    <select name="residence_type" class="form-select" id="residenceTypeSelect" required>
+      <option selected disabled value="">Choose Type</option>
       <option value="Homeowner">Homeowner</option>
       <option value="Resident">Resident</option>
       <option value="Renter">Renter</option>
       <option value="Other">Other</option>
-    </select><div class="invalid-feedback">
+    </select>
+    <div class="invalid-feedback">
     Please provide valid lot number.
     </div>
-  </div>
+</div>
+
+<!-- Placeholder for Lot Type Select -->
+<div class="col-md-4" id="lotTypeSelect" style="display: none;">
+    <label for="lotType" class="form-label">Lot Type</label>
+    <select name="lot_type" class="form-select" id="lotType" required>
+      <option selected disabled value="">Choose Lot Type</option>
+      <option value="Acquired">Acquired</option>
+      <option value="Unacquired">Unacquired</option>
+    </select>
+</div>
+
+<!-- Placeholder for Award Status Select -->
+<div class="col-md-4" id="awardStatusSelect" style="display: none;">
+    <label for="awardStatus" class="form-label">Award Status</label>
+    <select name="award_status" class="form-select" id="awardStatus" required>
+      <option selected disabled value="">Choose Award Status</option>
+      <option value="Awarded">Awarded</option>
+      <option value="Not Yet Awarded">Not Yet Awarded</option>
+    </select>
+</div>
 
   <h5>Login credentials: </h5>
   <div class="col-md-4">
@@ -399,6 +419,35 @@ if(isset($_POST['add_mem'])){
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+
+
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const residenceTypeSelect = document.getElementById('residenceTypeSelect');
+    const lotTypeSelectDiv = document.getElementById('lotTypeSelect');
+    const lotTypeSelect = document.getElementById('lotType');
+    const awardStatusSelectDiv = document.getElementById('awardStatusSelect');
+
+    residenceTypeSelect.addEventListener('change', function() {
+        if (this.value === 'Homeowner') {
+            lotTypeSelectDiv.style.display = 'block';
+        } else {
+            lotTypeSelectDiv.style.display = 'none';
+            awardStatusSelectDiv.style.display = 'none'; // Hide this as well if not homeowner
+        }
+    });
+
+    lotTypeSelect.addEventListener('change', function() {
+        if (this.value === 'Acquired') {
+            awardStatusSelectDiv.style.display = 'block';
+        } else {
+            awardStatusSelectDiv.style.display = 'none';
+        }
+    });
+});
+</script>
+
+
   <script>
   const togglePassword = document.querySelector('#togglePassword');
   const password = document.querySelector('#validationCustom');
@@ -443,7 +492,11 @@ $(document).ready(function() {
 
 
 
+
+
   <!-- Vendor JS Files -->
+
+
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.umd.js"></script>

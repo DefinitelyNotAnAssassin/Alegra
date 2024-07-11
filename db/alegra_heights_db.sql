@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2024 at 07:58 AM
+-- Generation Time: Jul 11, 2024 at 01:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -122,23 +122,32 @@ CREATE TABLE `household_members` (
   `member_id` int(11) DEFAULT NULL,
   `is_pwd` tinyint(1) DEFAULT 0,
   `is_political_family` tinyint(1) DEFAULT 0,
-  `is_ethnic` tinyint(1) DEFAULT 0
+  `is_ethnic` tinyint(1) DEFAULT 0,
+  `is_ayuda` tinyint(4) DEFAULT NULL,
+  `is_military` tinyint(4) DEFAULT NULL,
+  `is_4ps` tinyint(4) DEFAULT NULL,
+  `is_gsis` tinyint(4) DEFAULT NULL,
+  `is_sss` tinyint(4) DEFAULT NULL,
+  `is_sap` tinyint(4) DEFAULT NULL,
+  `is_sap_qc` tinyint(4) DEFAULT NULL,
+  `is_senior` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `household_members`
 --
 
-INSERT INTO `household_members` (`id`, `relationship_to_head`, `occupation`, `national_id`, `social_security_number`, `passport_number`, `other_id_description`, `other_id_number`, `social_welfare_programs`, `created_at`, `updated_at`, `household_id`, `member_id`, `is_pwd`, `is_political_family`, `is_ethnic`) VALUES
-(7, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 19:58:03', '2024-06-20 19:58:03', 14, 3, 0, 0, 0),
-(8, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 19:58:52', '2024-06-20 19:58:52', 15, 4, 0, 0, 0),
-(9, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:02:01', '2024-06-20 20:02:01', 15, 19, 0, 0, 0),
-(10, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:03:31', '2024-06-20 20:03:31', 14, 2, 0, 0, 0),
-(14, '123', '123', '123', '123', '123', '123', '123', '123', '2024-06-23 18:31:26', '2024-06-23 18:31:26', 14, 4, 0, 0, 0),
-(15, '123', '1', '1', '', '', '', '', '', '2024-06-25 17:29:53', '2024-06-25 17:29:53', 14, 20, 0, 0, 0),
-(16, '', '', '', '', '', '', '', '', '2024-06-25 17:30:18', '2024-06-25 17:30:18', 14, 19, 0, 0, 0),
-(17, '', '', '', '', '', '12312312', '', '', '2024-06-25 17:33:03', '2024-06-25 18:22:37', 15, 20, 0, 1, 1),
-(18, '', '', '', '', '', '', '', '', '2024-06-25 17:34:09', '2024-06-25 17:34:09', 16, 20, 1, 1, 0);
+INSERT INTO `household_members` (`id`, `relationship_to_head`, `occupation`, `national_id`, `social_security_number`, `passport_number`, `other_id_description`, `other_id_number`, `social_welfare_programs`, `created_at`, `updated_at`, `household_id`, `member_id`, `is_pwd`, `is_political_family`, `is_ethnic`, `is_ayuda`, `is_military`, `is_4ps`, `is_gsis`, `is_sss`, `is_sap`, `is_sap_qc`, `is_senior`) VALUES
+(7, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 19:58:03', '2024-06-20 19:58:03', 14, 3, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 19:58:52', '2024-06-20 19:58:52', 15, 4, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:02:01', '2024-06-20 20:02:01', 15, 19, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'Head', '1', '1', '1', '1', '1', '1', '1', '2024-06-20 20:03:31', '2024-06-20 20:03:31', 14, 2, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, '123', '123', '123', '123', '123', '123', '123', '123', '2024-06-23 18:31:26', '2024-06-23 18:31:26', 14, 4, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, '123', '1', '1', '', '', '', '', '', '2024-06-25 17:29:53', '2024-06-25 17:29:53', 14, 20, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, '', '', '', '', '', '', '', '', '2024-06-25 17:30:18', '2024-06-25 17:30:18', 14, 19, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, '', '', '', '', '', '12312312', '', '', '2024-06-25 17:33:03', '2024-06-25 18:22:37', 15, 20, 0, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, '', '', '', '', '', '', '', '', '2024-06-25 17:34:09', '2024-06-25 17:34:09', 16, 20, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, '123123', '123', '', '', '', '', '', '', '2024-07-11 09:15:44', '2024-07-11 11:16:29', 17, 20, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -162,19 +171,22 @@ CREATE TABLE `members` (
   `date_added` date DEFAULT current_timestamp(),
   `household_id` int(11) DEFAULT NULL,
   `membership_plan` varchar(255) DEFAULT 'Monthly',
-  `residence_type` varchar(255) DEFAULT 'Homeowner'
+  `residence_type` varchar(255) DEFAULT 'Homeowner',
+  `lot_type` varchar(255) DEFAULT NULL,
+  `award_type` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `block_number`, `lot_number`, `first_name`, `mid_name`, `last_name`, `gender`, `contact`, `username`, `password`, `user_image`, `status`, `date_added`, `household_id`, `membership_plan`, `residence_type`) VALUES
-(2, 8, 17, 'Krisha', '', 'Maldonado', 'Female', '09121234567', 'kris', 'kris', 'dp2.png', 1, '2023-06-18', 9, 'Annually', 'Homeowner'),
-(3, 8, 16, 'Annalyza', 'Sarah', 'Maldonado', 'Rather Not Say', '09123456789', 'sample_user', 'sample_user', 'dp1.png', 1, '2023-06-18', 13, 'Monthly', 'Homeowner'),
-(4, 9, 2, 'Princess', 'Sarah', 'Does', 'Female', '', 'sarah', 'sarah', '68754d3618d624a051c3f38dc5a732cd.jpg', 1, '2023-06-18', 17, 'Monthly', 'Homeowner'),
-(19, 9, 11, 'Sarah', 'Doe', 'Doe', 'Female', '09123456789', 'sarah', 'alegraheights', 'messages-2.jpg', 1, '2023-06-18', 15, 'Monthly', 'Homeowner'),
-(20, 1, 1, 'Winmari', '', 'Manzano', 'Male', '1', '1', '12121', '448262227_10232385425642472_8136769368041204756_n.jpg', 1, '2024-06-24', NULL, 'Semi-Annually', 'Homeowner');
+INSERT INTO `members` (`id`, `block_number`, `lot_number`, `first_name`, `mid_name`, `last_name`, `gender`, `contact`, `username`, `password`, `user_image`, `status`, `date_added`, `household_id`, `membership_plan`, `residence_type`, `lot_type`, `award_type`) VALUES
+(2, 8, 17, 'Krisha', '', 'Maldonado', 'Female', '09121234567', 'kris', 'kris', 'dp2.png', 1, '2023-06-18', 9, 'Annually', 'Homeowner', NULL, NULL),
+(3, 8, 16, 'Annalyza', 'Sarah', 'Maldonado', 'Rather Not Say', '09123456789', 'sample_user', 'sample_user', 'dp1.png', 1, '2023-06-18', 13, 'Monthly', 'Homeowner', NULL, NULL),
+(4, 9, 2, 'Princess', 'Sarah', 'Does', 'Female', '', 'sarah', 'sarah', '68754d3618d624a051c3f38dc5a732cd.jpg', 1, '2023-06-18', 17, 'Monthly', 'Homeowner', NULL, NULL),
+(19, 9, 11, 'Sarah', 'Doe', 'Doe', 'Female', '09123456789', 'sarah', 'alegraheights', 'messages-2.jpg', 1, '2023-06-18', 15, 'Monthly', 'Homeowner', NULL, NULL),
+(20, 1, 1, 'Winmari', '', 'Manzano', 'Male', '1', '1', '12121', '448262227_10232385425642472_8136769368041204756_n.jpg', 1, '2024-06-24', NULL, 'Semi-Annually', 'Homeowner', NULL, NULL),
+(21, 3, 4, 'Winmari', '', 'Manzano', 'Male', '1', 'winmari.manzano', 'alegraheights', '416806701_1147437819998445_7415913858888315293_n.jpg', 1, '2024-07-11', NULL, 'monthly', 'Homeowner', 'Acquired', 'NotYetAwarded');
 
 -- --------------------------------------------------------
 
@@ -732,13 +744,13 @@ ALTER TABLE `household`
 -- AUTO_INCREMENT for table `household_members`
 --
 ALTER TABLE `household_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `payment_log`

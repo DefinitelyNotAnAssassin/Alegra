@@ -524,7 +524,7 @@ $households = mysqli_fetch_all($result, MYSQLI_ASSOC);
       </thead>
       <tbody>
         <?php foreach ($households as $household): 
-          $query = "SELECT hm.id, m.first_name, m.last_name, hm.relationship_to_head, hm.occupation, hm.social_security_number, hm.passport_number, hm.other_id_description, hm.other_id_number, hm.social_welfare_programs, hm.is_pwd, hm.is_political_family, hm.is_ethnic
+          $query = "SELECT hm.id, m.first_name, m.last_name, hm.relationship_to_head, hm.occupation, hm.social_security_number, hm.passport_number, hm.other_id_description, hm.other_id_number, hm.social_welfare_programs, hm.is_pwd, hm.is_political_family, hm.is_ethnic, hm.is_senior, hm.is_military, hm.is_sap, hm.is_sap_qc, hm.is_ayuda, hm.is_4ps, hm.is_sss, hm.is_gsis
                 FROM household_members hm
                 JOIN members m ON hm.member_id = m.id
                 WHERE hm.household_id = " . $household['id'];
@@ -650,9 +650,17 @@ const changeMembers = (householdMembers) => {
         <td>${member.other_id_description}</td>
         <td>${member.other_id_number}</td>
         <td>${member.social_welfare_programs}</td>
-        <td>${member.is_pwd}</td>
-        <td>${member.is_political_family}</td>
-        <td>${member.is_ethnic}</td>
+        <td><input type="checkbox" disabled ${member.is_pwd == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_political_family == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_ethnic == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_senior == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_military == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_sap == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_sap_qc == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_ayuda == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_4ps == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_sss == 1 ? 'checked' : ''}></td>
+        <td><input type="checkbox" disabled ${member.is_gsis == 1 ? 'checked' : ''}></td>
         <td><a href="/alegra/admin/edit_household_member.php?id=${member.id}"><i class="fa-solid fa-edit"></i></a></td>
       </tr>
     `;
@@ -674,7 +682,16 @@ const changeMembers = (householdMembers) => {
           <th scope = 'col'>Is PWD</th>
           <th scope = 'col'>Is Political Family</th>
           <th scope = 'col'>Is Ethnic</th>
+          <th scope = 'col'>Is Senior Citizen</th>
+          <th scope = 'col'>Is Military</th>
+          <th scope = 'col'>Is SAP</th>
+          <th scope = 'col'>Is SAP QC</th>
+          <th scope = 'col'>Is Ayuda</th>
+          <th scope = 'col'>Is 4Ps</th>
+          <th scope = 'col'>Is SSS</th>
+          <th scope = 'col'>Is GSIS</th>
           <th scope = 'col'>Action</th>
+
         </tr>
       </thead>
       <tbody>

@@ -69,9 +69,7 @@ if (isset($_SESSION['id'])) {
                 <hr class="slash">
 
               </form>
-              <div class="d-grid">
-                  <a class="btn-login text-uppercase" style="text-align: center; color: #f3f1eb;"  href="../mem_login.php"><i class="fa-regular fa-user"></i> Member Login</button></a>
-                </div>
+            
             </div>
           </div>
         </div>

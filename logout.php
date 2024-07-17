@@ -2,6 +2,6 @@
 session_start();
 if(session_destroy())
 {
-header("Location: mem_login.php");
+header("Location: admin/admin-login.php");
 }
 ?>

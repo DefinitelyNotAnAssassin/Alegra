@@ -85,9 +85,8 @@ $obj = new adminback();
     </div>
 
     <!-- Header -->
-    <header class="" style="margin: 0;">
-        <img src="assets/img/banner.png" style=" max-width: 110%; height: auto;">
-    </header>
+    <header class="" style="margin-bottom: 5vh;">
+         <br /></header>
 
     <!-- First Grid -->
     <div class="w3-row-padding w3-white w3-padding-64 w3-container">
